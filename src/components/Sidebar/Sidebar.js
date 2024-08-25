@@ -5,7 +5,7 @@ import './Sidebar.css';
 
 const Sidebar = () => (
     <div className= "sidebar">
-        <h2 className= "logo">FINEbank.IO</h2>
+        <h2 className= "logo">SavvyTrack</h2>
         <Menu />
         <UserProfile />
     </div>

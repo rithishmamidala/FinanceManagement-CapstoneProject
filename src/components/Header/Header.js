@@ -5,8 +5,8 @@ import { FaSearch, FaBell } from 'react-icons/fa';
 const Header = () => (
     <div className=" header" >
         <div>
-            <h2>Hello Tanzir</h2>
-            <p>May 19, 2023</p>
+            <h2>Hello Ritish</h2>
+            <p>Nov 09, 2024</p>
         </div>
         <div className= "headerIcons">
             <FaBell className="headerIcon" />
