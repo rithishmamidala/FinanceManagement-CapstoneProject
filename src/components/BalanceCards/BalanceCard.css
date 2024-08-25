@@ -1,0 +1,60 @@
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cardLogo {
+    width: 40px;
+}
+
+.cardActions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.removeButton, .detailsButton {
+    border: none;
+    background-color: #20b2aa;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.addAccountButton {
+    width: 100%;
+    background-color: #20b2aa;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+}
+
+.editAccountLink {
+    margin-top: 10px;
+    text-align: center;
+    color: #20b2aa;
+    cursor: pointer;
+    font-size: 14px;
+}

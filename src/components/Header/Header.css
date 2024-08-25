@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+   
+   
+}
+
+.headerIcons {
+    display: flex;
+    align-items: center;
+   
+}
+
+.headerIcon {
+    margin-right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput {
+    border: none;
+    outline: none;
+    margin-left: 10px;
+}
