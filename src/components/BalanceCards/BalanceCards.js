@@ -63,6 +63,10 @@ const BalanceCards = () => {
         }
     };
 
+    function deleteById(id) {
+        axios.delete(id)
+    }
+
     return (
         <div className="cardsContainer">
             {cardData.map((card, index) => (
@@ -74,7 +78,7 @@ const BalanceCards = () => {
                     <p>{card.accountNumber}</p>
                     <h3>{`$${parseFloat(card.balance).toFixed(2)}`}</h3>
                     <div className="cardActions">
-                        <button className="removeButton">Remove</button>
+                        <button className="removeButton" onClick={(e)=>{deleteById(card.id)}}>Remove</button>
                         <button className="detailsButton">Details</button>
                     </div>
                 </div>
