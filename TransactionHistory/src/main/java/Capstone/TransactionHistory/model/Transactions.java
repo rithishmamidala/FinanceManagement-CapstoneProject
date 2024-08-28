@@ -1,11 +1,13 @@
 package Capstone.TransactionHistory.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+
 
 import java.time.LocalDate;
 
@@ -13,12 +15,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Document
+@Entity
 public class Transactions {
     @Id
     private String accountName; // Primary key
     private Long ItemId;
     private String Goal;
+    private String transactionType;
     private LocalDate date;
-    private String amount;
+    private Long amount;
 }
