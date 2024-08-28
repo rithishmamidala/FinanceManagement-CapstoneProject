@@ -3,6 +3,8 @@ import './BalanceCard.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BalanceCards = () => {
     const [showModal, setShowModal] = useState(false);
@@ -21,7 +23,7 @@ const BalanceCards = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:2008/api'); // Adjust the URL as needed
+                const response = await axios.get('http://localhost:9099/api'); // Adjust the URL as needed
                 setCardData(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -33,7 +35,7 @@ const BalanceCards = () => {
 
     const add = async () => {
         try {
-            const response = await axios.post('http://localhost:2008/api', {
+                await axios.post('http://localhost:9099/api', {
                 id: cardData.length + 1,  // Incremental ID (you might want to let the backend handle this)
                 accountName: accountTitle,
                 accountNumber: accountNumber,
@@ -43,21 +45,13 @@ const BalanceCards = () => {
             });
 
             console.log("Data posted!");
+            toast.success("Data posted successfully!");
 
             // Option 1: Re-fetch data from backend after adding a new account
-            const updatedData = await axios.get('http://localhost:2008/api');
+            const updatedData = await axios.get('http://localhost:9099/api');
             setCardData(updatedData.data);
 
-            // Option 2: Alternatively, you could update the state directly without re-fetching
-            // const newCard = {
-            //     title: accountTitle,
-            //     logo: 'path_to_logo',  // Replace with actual logo path
-            //     accountNumber: accountNumber,
-            //     amount: `$${parseFloat(amount).toFixed(2)}`  // Format amount as currency
-            // };
-            // setCardData([...cardData, newCard]);
-
-            handleClose();  // Close the modal after submission
+            handleClose();  
         } catch (error) {
             console.error("Something went wrong while posting data:", error);
         }
@@ -69,6 +63,7 @@ const BalanceCards = () => {
 
     return (
         <div className="cardsContainer">
+            {/* <ToastContainer /> */}
             {cardData.map((card, index) => (
                 <div className="card" key={index}>
                     <div className="cardHeader">

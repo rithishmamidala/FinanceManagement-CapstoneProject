@@ -1,22 +1,22 @@
-/* Transactions.css */
-.transactionsTable {
-    padding: 20px;
-}
-
-table {
+.history{
     width: 100%;
-    border-collapse: collapse;
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    height: auto;
 
-table, th, td {
-    border: 1px solid #ddd;
 }
-
-th, td {
-    padding: 8px;
-    text-align: left;
+.addAccounts{
+background-color:#20b2aa ;
+color: white;
+border: none;
+padding: 12px 17px;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+margin-top: 20px;
 }
-
-th {
-    background-color: #f4f4f4;
+.addAccounts:hover {
+    background-color:#59cf94;
 }
