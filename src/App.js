@@ -9,7 +9,7 @@ import Transaction from './components/Transaction/Transaction';
 
 // import Bills from './components/Bills/Bills';  // Example component
 // import Expenses from './components/Expenses/Expenses';  // Example component
-// import Goals from './components/Goals/Goals';  // Example component
+import Goals from './components/Goals/Goals';  // Example component
 // import Settings from './components/Settings/Settings';  // Example component
 import './App.css';
 
@@ -23,9 +23,10 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<BalanceCards />} />
                         <Route path="/transactions" element={<Transaction />} />
+                        <Route path="/goals" element={<Goals />} />
                         {/* <Route path="/bills" element={<Bills />} /> */}
                         {/* <Route path="/expenses" element={<Expenses />} /> */}
-                        {/* <Route path="/goals" element={<Goals />} /> */}
+                        
                         {/* <Route path="/settings" element={<Settings />} />  */}
                        
                     </Routes>

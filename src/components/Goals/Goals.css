@@ -1,0 +1,66 @@
+.goals-container {
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.date-picker-button {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.date-picker-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-icon {
+    margin-right: 5px;
+}
+
+.card h5, .card h6 {
+    margin-bottom: 15px;
+}
+
+.card-body p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.card-body .btn {
+    font-size: 14px;
+}
+
+.expense-card {
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+.expense-card .btn {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.modal-title {
+    font-size: 18px;
+}
+
+.modal-body input {
+    font-size: 16px;
+}
+
+.modal-footer .btn {
+    font-size: 14px;
+}
