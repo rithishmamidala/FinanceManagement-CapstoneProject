@@ -13,6 +13,16 @@ const Transaction = () => {
     const [accountName, setAccountName] = useState('');
     const [showModal, setShowModal] = useState(false);
 
+    const [htable,setHtable] = useState([]);
+    const dump = {accountName: accountName,
+        ItemId: 1,
+        Goal: goal,
+        transactionType: paymentType,
+        date: "2024-08-28",
+        amount: amount};
+
+    
+
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
 
@@ -21,6 +31,7 @@ const Transaction = () => {
             try {
                 const response = await axios.get('http://localhost:2002/TransactionHistory');
                 setTransactions(response.data);
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -44,6 +55,9 @@ const Transaction = () => {
             // Fetch updated transaction list after adding
             const updatedData = await axios.get('http://localhost:2002/TransactionHistory');
             setTransactions(updatedData.data);
+            setHtable(...htable,dump);
+            console.log(htable);
+            
 
             handleClose();  
         } catch (error) {

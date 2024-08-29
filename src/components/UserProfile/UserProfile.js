@@ -11,7 +11,7 @@ const UserProfile = () => (
         <div className=" styles.profile">
             <img src="path_to_profile_image" alt="Profile" className="profileImg" />
             <div>
-                <p className="profileName">Tanzir Rahman</p>
+                <p className="profileName">Ritish Mamidala</p>
                 <a href="profile_link" className="profileLink">View profile</a>
             </div>
         </div>
