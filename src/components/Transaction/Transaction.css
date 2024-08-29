@@ -20,3 +20,33 @@ margin-top: 20px;
 .addAccounts:hover {
     background-color:#59cf94;
 }
+/* DropdownMenu.css */
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-dropdown select {
+    width: 100%;
+    padding: 10px;
+    appearance: none; /* Removes default arrow */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
+.custom-dropdown::after {
+    content: '▼'; /* Unicode character for a downward arrow */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 12px;
+    color: #333;
+}

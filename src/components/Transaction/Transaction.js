@@ -64,9 +64,9 @@ const Transaction = () => {
             console.error("Something went wrong while posting data:", error);
         }
     };
-
+  
     return (
-        <div className="container mt-5">
+        <div className="container mt-5  ">
             <h2 className="mb-4">Transaction Table</h2>
             <div className="table-responsive">
                 <table className="table table-striped table-hover">
@@ -121,12 +121,18 @@ const Transaction = () => {
                         </Form.Group>
                         <Form.Group controlId="formPaymentType">
                             <Form.Label>Payment Type</Form.Label>
+                            <div className="custom-dropdown">
                             <Form.Control
-                                type="text"
-                                placeholder="Select Payment Type"
+                                as="select"
                                 value={paymentType}
                                 onChange={(e) => setPaymentType(e.target.value)}
-                            />
+                            >
+                                <option value="">Select Payment Type</option>
+                                <option value="Credit">Credit</option>
+                                <option value="Debit">Debit</option>
+                            </Form.Control>
+                        </div>
+                        
                         </Form.Group>
                         <Form.Group controlId="formDate">
                             <Form.Label>Date Of Payment</Form.Label>
