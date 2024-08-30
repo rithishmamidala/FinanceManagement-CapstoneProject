@@ -26,7 +26,7 @@ public class controller {
         return rep.findAll();
     }
 
-    @PostMapping("/transactions/process")
+    @PostMapping
     public void processTransaction(@RequestBody Transactions transaction) {
         serve.processTransaction(transaction);
 
