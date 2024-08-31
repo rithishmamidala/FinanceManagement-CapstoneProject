@@ -113,22 +113,26 @@ const BalanceCards = () => {
                                 focused={state.focus}
                             />
                             <form onSubmit={add}>
-                                <div>
-                                    <input
-                                        type="tel"
-                                        name="number"
-                                        placeholder="Card Number"
-                                        value={state.number}
-                                        onChange={handleInputChange}
-                                        onFocus={handleInputFocus}
-                                        maxLength="19"
-                                        pattern="\d{16}"
-                                        required
-                                    />
+                            <div>
+                            <input
+                            type="tel"
+                            name="number"
+                            placeholder="Card Number"
+                            value={state.number}
+                            onChange={handleInputChange}
+                            onFocus={handleInputFocus}
+                            maxLength="19"
+                            pattern="\d{16}"
+                            required
+                            onInput={(event) => {
+                            event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                            }}
+                             />
                                 </div>
+
                                 <div>
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="name"
                                         placeholder="Card name"
                                         value={state.name}
@@ -138,30 +142,49 @@ const BalanceCards = () => {
                                     />
                                 </div>
                                 <div>
-                                    <input
-                                        type="tel"
-                                        name="expiry"
-                                        placeholder="Expiry Date (MM/YY)"
-                                        value={state.expiry}
-                                        onChange={handleInputChange}
-                                        onFocus={handleInputFocus}
-                                        pattern="\d\d/\d\d"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <input
-                                        type="tel"
-                                        name="cvc"
-                                        placeholder="CVC"
-                                        value={state.cvc}
-                                        onChange={handleInputChange}
-                                        onFocus={handleInputFocus}
-                                        maxLength="4"
-                                        pattern="\d{3,4}"
-                                        required
-                                    />
-                                </div>
+                                <input
+                                type="tel"
+                                name="expiry"
+                                placeholder="Expiry Date (MM/YY)"
+                                value={state.expiry}
+                                onChange={(event) => {
+                                const { value } = event.target;
+                                // Basic pattern validation for MM/YY format
+                                if (/^\d{0,2}\/?\d{0,2}$/.test(value)) {
+                                handleInputChange(event);
+                                }
+                                }}
+                                onFocus={handleInputFocus}
+                                pattern="(0[1-9]|1[0-2])\/\d{2}"
+                                required
+                            onBlur={(event) => {
+                            const { value } = event.target;
+                            // Check for valid month and year
+                            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) {
+                alert('Please enter a valid expiry date in MM/YY format.');
+                }
+                }}
+                    />
+                </div>
+
+                <div>
+                <input
+                type="text"       // Use text to have more control over the input
+                name="cvc"
+                placeholder="CVC"
+                value={state.cvc}
+                onChange={(e) => {
+                // Get the value and only keep the first 4 digits
+                const newValue = e.target.value.replace(/\D/g, '').slice(0, 4);
+                setState((prev) => ({ ...prev, cvc: newValue }));
+                    }}
+                onFocus={handleInputFocus}
+                inputMode="numeric" // Show numeric keyboard on mobile devices
+                maxLength="4"      // Limit input length to 4 characters
+                required
+                 />
+                </div>
+
                                 <div>
                                     <input
                                         type="number"
