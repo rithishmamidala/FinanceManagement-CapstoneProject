@@ -4,8 +4,8 @@ import UserProfile from '../UserProfile/UserProfile';
 import './Sidebar.css';
 
 const Sidebar = () => (
-    <div className= "sidebar">
-        <h2 className= "logo">SavvyTrack</h2>
+    <div className="sidebar">
+        <h2 className="logo">SavvyTrack</h2>
         <Menu />
         <UserProfile />
     </div>

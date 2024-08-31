@@ -21,8 +21,9 @@ const App = () => {
                 <Sidebar />
                 <div className="mainContent">
                     <Header />
+                    
                     <Routes>
-                        <Route path="/" element={<BalanceCards />} />
+                        <Route path="/balance" element={<BalanceCards />} />
                         <Route path="/transactions" element={<Transaction />} />
                         <Route path="/bills" element={<Bills />} />
                         <Route path="/expenses" element={<Expenses />} />

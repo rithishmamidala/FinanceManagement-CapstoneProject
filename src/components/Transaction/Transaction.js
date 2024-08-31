@@ -28,7 +28,7 @@ const Transaction = () => {
 
     const fetchAccounts = async () => {
       try {
-        const response = await axios.get('http://localhost:9099/api'); // Adjust the URL as needed
+        const response = await axios.get('http://localhost:7000/api'); // Adjust the URL as needed
         const accountNames = [...new Set(response.data.map(transaction => transaction.accountName))];
         setUniqueAccountNames(accountNames);
       } catch (error) {
@@ -60,10 +60,10 @@ const Transaction = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:2002/TransactionHistory', newTransaction);
+      await axios.post('http://localhost:7000/TransactionHistory', newTransaction);
 
       // Fetch updated transaction list after adding
-      const updatedData = await axios.get('http://localhost:2002/TransactionHistory');
+      const updatedData = await axios.get('http://localhost:7000/TransactionHistory');
       setTransactions(updatedData.data);
 
       setShowModal(false);

@@ -3,22 +3,26 @@ import './BalanceCard.css';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cards from 'react-credit-cards-2';
+import 'react-credit-cards-2/dist/es/styles-compiled.css';
 
 const BalanceCards = () => {
     const [showModal, setShowModal] = useState(false);
     const [cardData, setCardData] = useState([]);
-
-    const [accountTitle, setAccountTitle] = useState('');
-    const [accountNumber, setAccountNumber] = useState(''); 
-    const [accountType, setAccountType] = useState(''); 
-    const [accountCVV, setAccountCVV] = useState('');
     const [amount, setAmount] = useState('');
+    
+    const [state, setState] = useState({
+        number: '',
+        expiry: '',
+        cvc: '',
+        name: '',
+        focus: '',
+    });
 
-    // Fetch data from the backend using a GET request
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9099/api'); // Adjust the URL as needed
+                const response = await axios.get('http://localhost:7000/api');
                 setCardData(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -26,23 +30,23 @@ const BalanceCards = () => {
         };
 
         fetchData();
-    }, []);  // Empty dependency array means this runs once when the component mounts
+    }, []);
 
-    const add = async () => {
+    const add = async (e) => {
+        e.preventDefault();
         try {
-            await axios.post('http://localhost:9099/api', {
-                id: cardData.length + 1,  // Incremental ID (you might want to let the backend handle this)
-                accountName: accountTitle,
-                accountNumber: accountNumber,
-                cardType: accountType,
-                cvv: accountCVV,
+            await axios.post('http://localhost:7000/api', {
+                id: cardData.length + 1,
+                accountName: state.name,
+                accountNumber: state.number,
+                cardType: "savings",
+                cvv: state.cvc,
                 balance: amount
             });
 
             toast.success("Data posted successfully!");
 
-            // Option 1: Re-fetch data from backend after adding a new account
-            const updatedData = await axios.get('http://localhost:9099/api');
+            const updatedData = await axios.get('http://localhost:7000/api');
             setCardData(updatedData.data);
 
             setShowModal(false);  
@@ -52,33 +56,42 @@ const BalanceCards = () => {
         }
     };
 
-    function deleteById(id) {
-        axios.delete(`http://localhost:9099/api/${id}`)
-            .then(() => {
-                setCardData(cardData.filter(card => card.id !== id));
-                toast.success("Account removed successfully!");
-            })
-            .catch(error => {
-                console.error("Error deleting account:", error);
-                toast.error("Failed to delete the account.");
-            });
-    }
+    const deleteById = async (id) => {
+        try {
+            await axios.delete(`http://localhost:7000/api/${id}`);
+            setCardData(cardData.filter(card => card.id !== id));
+            toast.success("Account removed successfully!");
+        } catch (error) {
+            console.error("Error deleting account:", error);
+            toast.error("Failed to delete the account.");
+        }
+    };
+
+    const handleInputChange = (evt) => {
+        const { name, value } = evt.target;
+        setState((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleInputFocus = (evt) => {
+        setState((prev) => ({ ...prev, focus: evt.target.name }));
+    };
 
     return (
         <>   
         <div className="cardsContainer">
             {cardData.map((card, index) => (
                 <div className="card" key={index}>
-                    <div className="cardHeader">
-                        <h4>{card.accountName}</h4>
-                        <img src={card.logo} alt="Bank Logo" className="cardLogo" />
+                    <div className="cardContent">
+                        <Cards
+                            number={card.accountNumber}
+                            expiry={card.expiry || "12/24"}
+                            cvc={card.cvv}
+                            name={card.accountName}
+                            focused={state.focus}
+                        />
+                        
                     </div>
-                    <p>{card.accountNumber}</p>
-                    <h3>{`$${parseFloat(card.balance).toFixed(2)}`}</h3>
-                    <div className="cardActions">
-                        <button className="removeButton" onClick={() => deleteById(card.id)}>Remove</button>
-                        <button className="detailsButton">Details</button>
-                    </div>
+                   
                 </div>
             ))}
             <div className="card">
@@ -91,63 +104,84 @@ const BalanceCards = () => {
                     <div className="modal-content">
                         <span className="close" onClick={() => setShowModal(false)}>&times;</span>
                         <h2>Add Account</h2>
-                        <form onSubmit={(e) => {e.preventDefault(); add();}}>
-                            <div className="form-group">
-                                <label>Account Title:</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter account title"
-                                    value={accountTitle}
-                                    onChange={(e) => setAccountTitle(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Account Number:</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter account number"
-                                    value={accountNumber}
-                                    onChange={(e) => setAccountNumber(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Account Type:</label>
-                                <input
-                                    type="text"
-                                    placeholder="Select Account Type"
-                                    value={accountType}
-                                    onChange={(e) => setAccountType(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>CVV:</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter CVV number"
-                                    value={accountCVV}
-                                    onChange={(e) => setAccountCVV(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Amount:</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter amount"
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <button type="submit">Submit</button>
-                        </form>
+                        <div id="PaymentForm">
+                            <Cards
+                                number={state.number}
+                                expiry={state.expiry}
+                                cvc={state.cvc}
+                                name={state.name}
+                                focused={state.focus}
+                            />
+                            <form onSubmit={add}>
+                                <div>
+                                    <input
+                                        type="tel"
+                                        name="number"
+                                        placeholder="Card Number"
+                                        value={state.number}
+                                        onChange={handleInputChange}
+                                        onFocus={handleInputFocus}
+                                        maxLength="19"
+                                        pattern="\d{16}"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Card name"
+                                        value={state.name}
+                                        onChange={handleInputChange}
+                                        onFocus={handleInputFocus}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="tel"
+                                        name="expiry"
+                                        placeholder="Expiry Date (MM/YY)"
+                                        value={state.expiry}
+                                        onChange={handleInputChange}
+                                        onFocus={handleInputFocus}
+                                        pattern="\d\d/\d\d"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="tel"
+                                        name="cvc"
+                                        placeholder="CVC"
+                                        value={state.cvc}
+                                        onChange={handleInputChange}
+                                        onFocus={handleInputFocus}
+                                        maxLength="4"
+                                        pattern="\d{3,4}"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        name="amount"
+                                        placeholder="Amount"
+                                        value={amount}
+                                        onChange={(e) => setAmount(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <button type="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}
         </div>
+        
         <ToastContainer />
         </>
     );

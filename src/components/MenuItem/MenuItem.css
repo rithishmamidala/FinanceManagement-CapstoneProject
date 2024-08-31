@@ -8,18 +8,19 @@
     transition: background-color 0.3s ease;
 }
 
-.menuItem:hover {
+.menuItem:not(.active):hover {
     background-color: #333;
 }
 
+/* Active class styles */
 .active {
     background-color: #20b2aa;
     font-weight: bold;
 }
-
 .icon {
     margin-right: 10px;
     display: flex;
     align-items: center;
     font-size: 20px;
 }
+
