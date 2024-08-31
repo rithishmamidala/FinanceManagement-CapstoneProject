@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+#        - id: usermanagementservice
+#          uri: http://localhost:8900
+#          predicates:
+#            - Path=/athletes/**,/coaches/**
+#          filters:
+#            - AuthenticationFilter
+
+#        - id: auth-service
+#          uri: lb://auth-service
+#          predicates:
+#            - Path=/auth/**
+        - id: Accounts
+          uri: http://localhost:9099
+          predicates:
+            - Path=/api/**
+#          filters:
+#            - AuthenticationFilter
+#        - id: wellness
+#          uri: http://localhost:8902
+#          predicates:
+#            - Path=/wellness/**
+#          filters:
+#            - AuthenticationFilter
+
+  application:
+    name: GateWay
