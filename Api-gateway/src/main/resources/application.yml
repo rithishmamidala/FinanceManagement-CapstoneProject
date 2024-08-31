@@ -1,0 +1,27 @@
+server:
+  port: 8222
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: Accounts
+          uri: http://localhost:7000
+          predicates:
+            - Path=/api/**
+        - id: TransactionHistory
+          uri: http://localhost:2002
+          predicates:
+            - Path=/TransactionHistory/**
+        - id: Bills
+          uri: http://localhost:9007
+          predicates:
+            - Path=/bills/**
+        - id: expensegoals
+          uri: http://localhost:2004
+          predicates:
+            - Path=/expense/**
