@@ -19,10 +19,10 @@ spring:
             - Path=/api/**
 #          filters:
 #            - AuthenticationFilter
-#        - id: wellness
-#          uri: http://localhost:8902
-#          predicates:
-#            - Path=/wellness/**
+        - id: TransactionHistory
+          uri: http://localhost:2002
+          predicates:
+            - Path=/TransactionHistory/**
 #          filters:
 #            - AuthenticationFilter
 
