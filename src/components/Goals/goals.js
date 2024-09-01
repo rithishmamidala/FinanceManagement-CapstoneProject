@@ -28,7 +28,7 @@ function Goals() {
         handleCloseGoalModal();
         
     };
-    console.log(expenseGoals);
+    // console.log(expenseGoals);
     useEffect(() => {
         const fetchData = async () => {
             try {

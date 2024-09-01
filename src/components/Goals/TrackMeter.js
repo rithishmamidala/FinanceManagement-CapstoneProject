@@ -1,89 +1,87 @@
-import React, { useEffect, useState } from 'react';
-import GaugeChart from 'react-gauge-chart';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import GaugeChart from 'react-gauge-chart';
 
+const TrackMeter = () => {
+  const [totalBalance, setTotalBalance] = useState(0);
+  const [currentMonthSpent, setCurrentMonthSpent] = useState(0);
+  const [previousMonthBalance, setPreviousMonthBalance] = useState(0);
 
-export default function TrackMeter() {
-    const [sumOfCreditsandDebits, setSumOfCreditsandDebits] = useState(0);
-    const [total, setTotal] = useState(0);
-
-    const calculateGaugeValue = (current, max) => {
-        return current / max; // This will return a value between 0 and 1
+  useEffect(() => {
+    const fetchAccountsData = async () => {
+      try {
+        const response = await axios.get('http://localhost:7000/api');
+        const accounts = response.data;
+        const total = accounts.reduce((sum, account) => sum + account.balance, 0);
+        setTotalBalance(total);
+      } catch (error) {
+        console.error('Error fetching accounts data:', error);
+      }
     };
 
-    useEffect(() => {
-        const fetchTransactions = async () => {
-            try {
-                const response = await axios.get('http://localhost:2002/TransactionHistory');
-                const transactionData = response.data;
+    const fetchTransactionData = async () => {
+      try {
+        const response = await axios.get('http://localhost:2002/TransactionHistory');
+        const transactions = response.data;
 
-                // Find the most recent month
-                const recentMonth = transactionData.reduce((latest, transaction) => {
-                    const transactionDate = new Date(transaction.date);
-                    return transactionDate > latest ? transactionDate : latest;
-                }, new Date(0));
-
-                // Filter transactions for the most recent month
-                const filteredTransactions = transactionData.filter(transaction => {
-                    const transactionDate = new Date(transaction.date);
-                    return transactionDate.getMonth() === recentMonth.getMonth() &&
-                        transactionDate.getFullYear() === recentMonth.getFullYear();
-                });
-
-                // Calculate the sum of credits and debits for the recent month
-                let totalSum = 0;
-                filteredTransactions.forEach(transaction => {
-                    if (transaction.transactionType === "Credit") {
-                        totalSum += transaction.amount;
-                    } else if (transaction.transactionType === "Debit") {
-                        totalSum -= transaction.amount;
-                    }
-                });
-
-                // Update state
-                setSumOfCreditsandDebits(totalSum);
-            } catch (error) {
-                console.error('Error fetching transactions:', error);
-            }
+        // Extracting month and year from the transaction date
+        const getMonthAndYear = (date) => {
+          const parsedDate = new Date(date);
+          return `${parsedDate.getFullYear()}-${parsedDate.getMonth() + 1}`;
         };
 
-        const fetchTotal = async () => {
-            try {
-                const response = await axios.get('http://localhost:9099/api');
-                const totalData = response.data.reduce((sum, account) => sum + account.balance, 0);
-                setTotal(totalData);
-            } catch (error) {
-                console.error('Error fetching total data:', error);
-            }
-        };
+        // Grouping transactions by month
+        const transactionsByMonth = transactions.reduce((acc, transaction) => {
+          const monthYear = getMonthAndYear(transaction.date);
+          if (!acc[monthYear]) acc[monthYear] = [];
+          acc[monthYear].push(transaction);
+          return acc;
+        }, {});
 
-        fetchTotal();
-        fetchTransactions();
-    }, []);
+        // Get most recent month and previous month
+        const months = Object.keys(transactionsByMonth).sort((a, b) => new Date(b) - new Date(a));
+        const currentMonth = months[0];
+        const previousMonth = months[1];
 
-    return (
-        <div className="card mb-3">
-            <div className="card-body">
-                <h5>Budget Mapper</h5>
-                <div className="d-flex justify-content-between">
-                    <div>
-                        <h6>Target Achieved</h6>
-                        <GaugeChart
-                            id="gauge-chart1"
-                            nrOfLevels={1}
-                            colors={['#00BFFF', '#1E90FF', '#4169E1']}
-                            percent={calculateGaugeValue(total - sumOfCreditsandDebits, total)}
-                            arcWidth={0.3}
-                            arcPadding={0.02}
-                            textColor="#000000"
-                            formatTextValue={() => `$${(total - sumOfCreditsandDebits).toLocaleString()}`}
-                        />
-                        <p className="text-center">${sumOfCreditsandDebits.toLocaleString()}</p>
+        // Calculate sum of credits and debits for the current month
+        const currentMonthTransactions = transactionsByMonth[currentMonth] || [];
+        const currentMonthTotal = currentMonthTransactions.reduce((sum, transaction) => {
+          return sum + (transaction.transactionType === 'Debit' ? transaction.amount : -transaction.amount);
+        }, 0);
+        setCurrentMonthSpent(currentMonthTotal);
 
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
+        // Calculate balance up to the end of the previous month
+        let previousBalance = totalBalance;
+        if (previousMonth) {
+          const previousMonthTransactions = transactionsByMonth[previousMonth];
+          previousBalance = previousMonthTransactions.reduce((sum, transaction) => {
+            return sum + (transaction.transactionType === 'Credit' ? transaction.amount : -transaction.amount);
+          }, previousBalance);
+        }
+        setPreviousMonthBalance(previousBalance);
+      } catch (error) {
+        console.error('Error fetching transactions data:', error);
+      }
+    };
+
+    fetchAccountsData();
+    fetchTransactionData();
+  }, [totalBalance]);
+
+  const gaugeValue = currentMonthSpent / totalBalance ;
+
+  return (
+    <div>
+      <h2>Track Meter</h2>
+      <GaugeChart
+        id="gauge-chart1"
+        nrOfLevels={10}
+        percent={gaugeValue}
+        textColor="#000"
+        formatTextValue={() => `${currentMonthSpent} / ${totalBalance}`}
+      />
+    </div>
+  );
+};
+
+export default TrackMeter;

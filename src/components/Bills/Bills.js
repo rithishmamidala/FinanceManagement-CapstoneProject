@@ -114,7 +114,7 @@ const Bills = () => {
               <div className="form-group">
                 <label>Amount:</label>
                 <input
-                  type="text"
+                  type="number"
                   name="amount"
                   value={newBill.amount}
                   onChange={handleInputChange}

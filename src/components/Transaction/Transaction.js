@@ -16,6 +16,10 @@ const Transaction = () => {
   const [uniqueAccountNames, setUniqueAccountNames] = useState([]);
   const [goalsData, setGoalsData] = useState([]);
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,10 +64,10 @@ const Transaction = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:7000/TransactionHistory', newTransaction);
+      await axios.post('http://localhost:2002/TransactionHistory', newTransaction);
 
       // Fetch updated transaction list after adding
-      const updatedData = await axios.get('http://localhost:7000/TransactionHistory');
+      const updatedData = await axios.get('http://localhost:2002/TransactionHistory');
       setTransactions(updatedData.data);
 
       setShowModal(false);
@@ -78,6 +82,20 @@ const Transaction = () => {
       console.error('Something went wrong while posting data:', error);
     }
   };
+
+  // Get paginated transactions
+  const indexOfLastTransaction = currentPage * rowsPerPage;
+  const indexOfFirstTransaction = indexOfLastTransaction - rowsPerPage;
+  const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+
+  // Handle page change
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Generate page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(transactions.length / rowsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div className="container mt-5">
@@ -95,9 +113,9 @@ const Transaction = () => {
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction, index) => (
+            {currentTransactions.map((transaction, index) => (
               <tr key={index}>
-                <th>{index + 1}</th>
+                <th>{indexOfFirstTransaction + index + 1}</th>
                 <td>{transaction.goal}</td>
                 <td>{transaction.accountName}</td>
                 <td>{transaction.date}</td>
@@ -184,6 +202,23 @@ const Transaction = () => {
           </div>
         </div>
       )}
+
+      {/* Pagination Controls */}
+      <nav>
+        <ul className="pagination">
+          {pageNumbers.map((number) => (
+            <li key={number} className="page-item">
+              <button
+                onClick={() => paginate(number)}
+                className="page-link"
+                href="#!"
+              >
+                {number}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 };

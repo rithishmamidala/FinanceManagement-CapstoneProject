@@ -10,7 +10,7 @@ const BalanceCards = () => {
     const [showModal, setShowModal] = useState(false);
     const [cardData, setCardData] = useState([]);
     const [amount, setAmount] = useState('');
-    
+    console.log(cardData);
     const [state, setState] = useState({
         number: '',
         expiry: '',
@@ -24,6 +24,7 @@ const BalanceCards = () => {
             try {
                 const response = await axios.get('http://localhost:7000/api');
                 setCardData(response.data);
+                
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
