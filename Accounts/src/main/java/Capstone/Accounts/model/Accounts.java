@@ -16,8 +16,9 @@ public class Accounts {
     private Long id;  // Primary key
 
     private String accountName;  //foreign key
+    private String userName;
     private String accountNumber;
     private String cardType;
-    private String CVV;
+    private Long CVV;
     private Long balance;
 }

@@ -1,9 +1,6 @@
 package Capstone.Accounts.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,9 @@ public class AccountsDTO {
     @NotEmpty(message = "Account name is required")
     private String accountName;
 
+    @NotEmpty(message = "User name is required")
+    private String userName;
+
     @NotEmpty(message = "Account number is required")
     @Pattern(regexp = "\\d{16}", message = "Account number must be a 16-digit number")
     private String accountNumber;
@@ -26,13 +26,13 @@ public class AccountsDTO {
     @NotEmpty(message = "Card type is required")
     private String cardType;
 
-    @NotEmpty(message = "CVV is required")
-    @Pattern(regexp = "\\d{4}", message = "CVV must be a 4-digit number")
-    private String CVV;
+    @NotNull(message = "CVV is required")
+    @Min(value = 1000, message = "CVV must be a 4-digit number")
+    @Max(value = 9999, message = "CVV must be a 4-digit number")
+    private Long CVV;
 
     @NotNull(message = "Balance cannot be null")
     @Min(value = 0, message = "Balance must be a positive number")
     private Long balance;
 
-    // Getters and setters
 }

@@ -26,6 +26,7 @@ public class AccountsController {
     public ResponseEntity<Accounts> add(@Valid @RequestBody AccountsDTO accountDTO) {
         Accounts account = new Accounts(
                 accountDTO.getId(),
+                accountDTO.getUserName(),
                 accountDTO.getAccountName(),
                 accountDTO.getAccountNumber(),
                 accountDTO.getCardType(),
