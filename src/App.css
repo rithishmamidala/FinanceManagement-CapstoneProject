@@ -1,0 +1,14 @@
+.appContainer {
+  display: flex;
+  /* position: fixed; */
+
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  background-color: #f8f9fa;
+  /* position: fixed; */
+  position: relative;
+  margin-left: 19%;
+}

@@ -1,0 +1,102 @@
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 50px;
+    justify-content: center;
+    padding: 20px;
+  
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Full width of the grid cell */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+   
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.cardLogo {
+    width: 40px;
+    height: auto;
+}
+
+.card h4 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #666;
+    margin: 5px 0;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    color: black;
+    margin: 15px 0;
+}
+
+.cardActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.removeButton,
+.detailsButton {
+    background-color: #20b2aa;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.removeButton:hover,
+.detailsButton:hover {
+    background-color: #59cf94;
+}
+
+.addAccountButton {
+    background-color: #59cf94;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.addAccountButton:hover {
+    background-color: #20b2aa;
+}
+
+.editAccountLink {
+    color:#59cf94;
+    cursor: pointer;
+    margin-top: 15px;
+    text-decoration: underline;
+}
+
+.editAccountLink:hover {
+    color: #59cf94;
+}
