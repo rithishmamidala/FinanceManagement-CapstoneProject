@@ -22,7 +22,7 @@ const BalanceCards = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:7000/api');
+                const response = await axios.get('http://localhost:9099/api');
                 setCardData(response.data);
                 
             } catch (error) {
@@ -36,7 +36,7 @@ const BalanceCards = () => {
     const add = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:7000/api', {
+            await axios.post('http://localhost:9099/api', {
                 id: cardData.length + 1,
                 accountName: state.name,
                 accountNumber: state.number,
@@ -47,7 +47,7 @@ const BalanceCards = () => {
 
             toast.success("Data posted successfully!");
 
-            const updatedData = await axios.get('http://localhost:7000/api');
+            const updatedData = await axios.get('http://localhost:9099/api');
             setCardData(updatedData.data);
 
             setShowModal(false);  
@@ -59,7 +59,7 @@ const BalanceCards = () => {
 
     const deleteById = async (id) => {
         try {
-            await axios.delete(`http://localhost:7000/api/${id}`);
+            await axios.delete(`http://localhost:9099/api/${id}`);
             setCardData(cardData.filter(card => card.id !== id));
             toast.success("Account removed successfully!");
         } catch (error) {
@@ -133,7 +133,7 @@ const BalanceCards = () => {
 
                                 <div>
                                     <input
-                                        type="number"
+                                        type="text"
                                         name="name"
                                         placeholder="Card name"
                                         value={state.name}
@@ -144,7 +144,7 @@ const BalanceCards = () => {
                                 </div>
                                 <div>
                                 <input
-                                type="tel"
+                                type="number"
                                 name="expiry"
                                 placeholder="Expiry Date (MM/YY)"
                                 value={state.expiry}
@@ -160,10 +160,8 @@ const BalanceCards = () => {
                                 required
                             onBlur={(event) => {
                             const { value } = event.target;
-                            // Check for valid month and year
-                            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) {
-                alert('Please enter a valid expiry date in MM/YY format.');
-                }
+                            
+                           
                 }}
                     />
                 </div>
