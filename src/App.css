@@ -3,11 +3,15 @@
   /* position: fixed; */
 
 }
+/* index.css or App.css */
+body {
+  font-family: 'Roboto', sans-serif;
+}
 
 .mainContent {
   flex: 1;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: hsl(210, 17%, 98%);
   /* position: fixed; */
   position: relative;
   margin-left: 19%;

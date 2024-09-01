@@ -10,16 +10,11 @@ function Expenses() {
     const [targetAmounts, setTargetAmounts] = useState([]);
     const [achievedAmounts, setAchievedAmounts] = useState([]);
     const [monthlyData, setMonthlyData] = useState({ months: [], creditAmounts: [], debitAmounts: [] });
-
     const [showGoalModal, setShowGoalModal] = useState(false);
-    const [targetAchieved, setTargetAchieved] = useState(12500);
-    const [thisMonthTarget, setThisMonthTarget] = useState(20000);
-    const [newTargetAchieved, setNewTargetAchieved] = useState(targetAchieved);
-    const [newThisMonthTarget, setNewThisMonthTarget] = useState(thisMonthTarget);
-
+    const [currentMonthTotal, setCurrentMonthTotal] = useState(0);
+    const [previousMonthTotal, setPreviousMonthTotal] = useState(0);
+    const [percentageChange, setPercentageChange] = useState(0);
     const [dateRange, setDateRange] = useState([null, null]);
-    const [startDate, endDate] = dateRange;
-
     const [expenseGoals, setExpenseGoals] = useState([
         { category: 'Housing', amount: 0 },
         { category: 'Food', amount: 0 },
@@ -29,12 +24,17 @@ function Expenses() {
         { category: 'Others', amount: 250 },
     ]);
 
+    // New state to hold category-wise data
+    const [categoryData, setCategoryData] = useState([]);
+
+    // Fetch transactions and aggregate monthly data
     useEffect(() => {
         const fetchMonthlyData = async () => {
             try {
                 const response = await axios.get('http://localhost:2002/TransactionHistory');
                 const transactions = response.data;
                 aggregateMonthlyData(transactions);
+                calculateMonthlyTotals(transactions); // Calculate totals for current and previous months
             } catch (error) {
                 console.error('Error fetching transactions:', error);
             }
@@ -47,7 +47,7 @@ function Expenses() {
         const monthlyTotals = {};
         const currentDate = new Date();
         const last12Months = [];
-    
+
         // Generate an array of the last 12 months with year
         for (let i = 11; i >= 0; i--) {
             const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
@@ -55,11 +55,11 @@ function Expenses() {
             last12Months.push(monthYear);
             monthlyTotals[monthYear] = { credit: 0, debit: 0 };
         }
-    
+
         transactions.forEach(transaction => {
             const transactionDate = new Date(transaction.date);
             const monthYear = transactionDate.toLocaleString('default', { month: 'short' }) + '-' + transactionDate.getFullYear();
-    
+
             // Check if the transaction falls within the last 12 months
             if (last12Months.includes(monthYear) && transactionDate >= new Date(currentDate.getFullYear(), currentDate.getMonth() - 11, 1)) {
                 if (transaction.transactionType === 'Credit') {
@@ -69,24 +69,101 @@ function Expenses() {
                 }
             }
         });
-    
+
         const months = last12Months; // Already ordered correctly from the last 12 months
         const creditAmounts = months.map(monthYear => monthlyTotals[monthYear].credit);
         const debitAmounts = months.map(monthYear => monthlyTotals[monthYear].debit);
-    
+
         setMonthlyData({
             months,
             creditAmounts,
             debitAmounts
         });
     };
-    
-  
+
+    const calculateMonthlyTotals = (transactions) => {
+        const today = new Date();
+        const currentMonth = today.getMonth(); // 0-indexed (January is 0)
+        const previousMonth = currentMonth === 0 ? 11 : currentMonth - 1; // Handle December case
+        const currentYear = today.getFullYear();
+        const previousYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+        // Initialize objects to hold totals by category
+        const currentMonthCategoryTotals = {};
+        const previousMonthCategoryTotals = {};
+
+        transactions.forEach(transaction => {
+            const transactionDate = new Date(transaction.date);
+            const month = transactionDate.getMonth();
+            const year = transactionDate.getFullYear();
+            const category = transaction.goal; // Assuming 'goal' is the category field
+            const amount = parseFloat(transaction.amount);
+
+            if (transaction.transactionType === 'Debit') {
+                if (month === currentMonth && year === currentYear) {
+                    currentMonthCategoryTotals[category] = (currentMonthCategoryTotals[category] || 0) + amount;
+                }
+
+                if (month === previousMonth && year === previousYear) {
+                    previousMonthCategoryTotals[category] = (previousMonthCategoryTotals[category] || 0) + amount;
+                }
+            }
+        });
+
+        // Calculate percentage changes for each category
+        const categoryPercentageChange = [];
+        for (const category in currentMonthCategoryTotals) {
+            const currentAmount = currentMonthCategoryTotals[category];
+            const previousAmount = previousMonthCategoryTotals[category] || 0;
+            const percentageChange = previousAmount === 0
+                ? (currentAmount > 0 ? 100 : 0)
+                : ((currentAmount - previousAmount) / previousAmount) * 100;
+            categoryPercentageChange.push({
+                category,
+                currentMonthTotal: currentAmount.toFixed(2),
+                previousMonthTotal: previousAmount.toFixed(2),
+                percentageChange: Math.floor(percentageChange)
+            });
+        }
+
+        // Handle categories that exist in previousMonth but not in currentMonth
+        for (const category in previousMonthCategoryTotals) {
+            if (!currentMonthCategoryTotals.hasOwnProperty(category)) {
+                categoryPercentageChange.push({
+                    category,
+                    currentMonthTotal: '0.00',
+                    previousMonthTotal: previousMonthCategoryTotals[category].toFixed(2),
+                    percentageChange: '-100.00' // Indicates 100% decrease
+                });
+            }
+        }
+        
+
+        // Calculate total amounts for current and previous months (overall)
+        const currentMonthTotalAmount = Object.values(currentMonthCategoryTotals).reduce((sum, amount) => sum + amount, 0);
+        const previousMonthTotalAmount = Object.values(previousMonthCategoryTotals).reduce((sum, amount) => sum + amount, 0);
+
+        setCurrentMonthTotal(currentMonthTotalAmount);
+        setPreviousMonthTotal(previousMonthTotalAmount);
+
+        if (previousMonthTotalAmount !== 0) {
+            const change = ((currentMonthTotalAmount - previousMonthTotalAmount) / previousMonthTotalAmount) * 100;
+            setPercentageChange(change.toFixed(2));
+        } else {
+            setPercentageChange('N/A');
+        }
+
+        // Set category-wise data
+        setCategoryData(categoryPercentageChange);
+    };
+    const getArrow = (percentage) => {
+        if (percentage > 0) return '↑'; // Upward arrow for positive change
+        if (percentage < 0) return '↓'; // Downward arrow for negative change
+        return ''; // No arrow for zero change
+    };
 
     const handleCloseGoalModal = () => setShowGoalModal(false);
     const handleShowGoalModal = () => {
-        setNewTargetAchieved(targetAchieved);
-        setNewThisMonthTarget(thisMonthTarget);
         setShowGoalModal(true);
     };
 
@@ -96,103 +173,39 @@ function Expenses() {
         return d.toISOString().slice(0, 10); // Return date in yyyy-mm-dd format
     };
 
-    const handleSaveGoal = async () => {
-        if (!isNaN(newTargetAchieved) && !isNaN(newThisMonthTarget)) {
-            setTargetAchieved(newTargetAchieved);
-            setThisMonthTarget(newThisMonthTarget);
-
-            const data = {
-                targetAchieved: newTargetAchieved,
-                thisMonthTarget: newThisMonthTarget,
-                startDate: startDate ? formatDateToLocal(startDate) : null,
-                endDate: endDate ? formatDateToLocal(endDate) : null,
-            };
-
-            try {
-                await axios.post('http://localhost:9004/goals/addtarget', data);
-                alert('Goal updated successfully!');
-            } catch (error) {
-                console.error('There was an error updating the goal!', error);
-                alert('Failed to update goal. Please try again.');
-            }
-
-            handleCloseGoalModal();
-        } else {
-            alert('Please enter valid numbers.');
-        }
-    };
-
     return (
         <div className="container mt-5 goals-container">
             <div className="card mb-3">
                 <h5>Monthly Bar Graph Example</h5>
-                
                 <BarGraph 
-    months={monthlyData.months} 
-    creditAmounts={monthlyData.creditAmounts} 
-    debitAmounts={monthlyData.debitAmounts} 
-/>
-
+                    months={monthlyData.months} 
+                    creditAmounts={monthlyData.creditAmounts} 
+                    debitAmounts={monthlyData.debitAmounts} 
+                />
             </div>
 
-            {/* Expenses Goals by Category Section */}
-            <div className="card mb-3">
-                <div className="card-body">
-                    <h5>Expenses Goals by Category</h5>
-                    <div className="row">
-                        {expenseGoals.map((goal, index) => (
-                            <div key={index} className="col-md-4 mb-3">
-                                <div className="card">
-                                    <div className="card-body text-center">
-                                        <h6>{goal.category}</h6>
-                                        <p>${goal.amount.toFixed(2)}</p>
-                                        <Button variant="outline-primary" onClick={() => alert('Adjust Goal')}>
-                                            Adjust
-                                        </Button>
-                                    </div>
-                                </div>
+             <div className="expense-container">
+               
+             <div className="category-summary">
+                    {categoryData.map(({ category, currentMonthTotal, previousMonthTotal, percentageChange }) => (
+                        <div className="category-box" key={category}>
+                            <div className="category-header">
+                                <span className="category-name">{category}</span>
+                                <span className={`percentage-arrow ${percentageChange > 0 ? 'up' : 'down'}`}>
+                                    {Math.abs(percentageChange)}%{getArrow(percentageChange)}
+                                </span>
                             </div>
-                        ))}
-                    </div>
+                            <div className="category-body">
+                                <p> ${currentMonthTotal}</p>
+                                {/* <p>Previous Month Total: ${previousMonthTotal}</p>
+                                <p>Percentage Change: {percentageChange}%</p> */}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            {/* Modal for Adjust Goal */}
-            <Modal show={showGoalModal} onHide={handleCloseGoalModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Adjust Goal</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="targetAchievedInput">
-                            <Form.Label>Target Achieved</Form.Label>
-                            <Form.Control
-                                type="number"
-                                placeholder="Enter target achieved"
-                                value={newTargetAchieved}
-                                onChange={(e) => setNewTargetAchieved(parseFloat(e.target.value))}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="thisMonthTargetInput" className="mt-3">
-                            <Form.Label>This Month Target</Form.Label>
-                            <Form.Control
-                                type="number"
-                                placeholder="Enter this month target"
-                                value={newThisMonthTarget}
-                                onChange={(e) => setNewThisMonthTarget(parseFloat(e.target.value))}
-                            />
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseGoalModal}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleSaveGoal}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+           
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Overview from './components/Overview/overview';
 import Sidebar from './components/Sidebar/Sidebar';
 import Header from './components/Header/Header';
 import BalanceCards from './components/BalanceCards/BalanceCards';
@@ -23,6 +24,7 @@ const App = () => {
                     <Header />
                     
                     <Routes>
+                        <Route path="/" element={<Overview />} />
                         <Route path="/balance" element={<BalanceCards />} />
                         <Route path="/transactions" element={<Transaction />} />
                         <Route path="/bills" element={<Bills />} />
