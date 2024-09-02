@@ -21,7 +21,7 @@ public class service {
     public List<Accounts> validate(String token) {
         String result = figen.validateToken(token);
         if (result != null) {
-            return accountRepository.findByAccountName(result);
+            return accountRepository.findByUserName(result);
         } else {
             // Handle case where token is invalid
             return List.of(); // or throw an appropriate exception

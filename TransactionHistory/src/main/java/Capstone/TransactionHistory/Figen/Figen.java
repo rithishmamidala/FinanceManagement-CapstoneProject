@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "accounts-service", url = "http://localhost:7000/api")
+@FeignClient(name = "Accounts", url = "http://localhost:2001/api")
 public interface Figen {
 
     @PutMapping("/accounts/updateBalance")
-    void updateAccountBalance(@RequestParam("accountName") String accountName, @RequestParam("newBalance") Long newBalance);
+     void updateBalance(@RequestParam("accountName") String accountName, @RequestParam("newBalance") Long newBalance);
 
     @GetMapping("/accounts/getBalance")
-    Long getAccountBalance(@RequestParam("accountName") String accountName);
+    Long getBalance(@RequestParam("accountName") String accountName);
 
 }

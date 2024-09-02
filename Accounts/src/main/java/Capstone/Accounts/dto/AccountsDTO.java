@@ -26,9 +26,9 @@ public class AccountsDTO {
     @NotEmpty(message = "Card type is required")
     private String cardType;
 
-    @NotNull(message = "CVV is required")
-    @Min(value = 1000, message = "CVV must be a 4-digit number")
-    @Max(value = 9999, message = "CVV must be a 4-digit number")
+//    @NotNull(message = "CVV is required")
+//    @Min(value = 1000, message = "CVV must be a 4-digit number")
+//    @Max(value = 9999, message = "CVV must be a 4-digit number")
     private Long CVV;
 
     @NotNull(message = "Balance cannot be null")

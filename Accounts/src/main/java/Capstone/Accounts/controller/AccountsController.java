@@ -42,27 +42,26 @@ public class AccountsController {
     }
 
 
-//    @PutMapping("/accounts/updateBalance")
-//    public ResponseEntity<String> updateBalance(@RequestParam("accountName") String accountName, @RequestParam("newBalance") Long newBalance) {
-//
-//        if (account != null) {
-//            account.setBalance(newBalance);
-//            repo.save(account);
-//            return new ResponseEntity<>("Balance updated successfully", HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>("Account not found", HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @PutMapping("/accounts/updateBalance")
+    public void updateBalance(@RequestParam("accountName") String accountName, @RequestParam("newBalance") Long newBalance) {
+        Accounts account = repo.findByAccountName(accountName);
+        if (account != null) {
+            account.setBalance(newBalance);
+            repo.save(account);
 
-//    @GetMapping("/accounts/getBalance")
-//    public ResponseEntity<Long> getBalance(@RequestParam("accountName") String accountName) {
-//        Accounts account = repo.findByAccountName(accountName);
-//        if (account != null) {
-//            return new ResponseEntity<>(account.getBalance(), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+
+        }
+    }
+
+    @GetMapping("/accounts/getBalance")
+    public Long getBalance(@RequestParam("accountName") String accountName) {
+        Accounts account = repo.findByAccountName(accountName);
+        if (account != null) {
+            return account.getBalance();
+        } else {
+            return null;
+        }
+    }
 
     @GetMapping
     public List<Accounts> validate(@RequestHeader(HttpHeaders.AUTHORIZATION) String token)
