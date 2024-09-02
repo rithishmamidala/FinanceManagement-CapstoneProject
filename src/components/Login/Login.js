@@ -22,7 +22,7 @@ const Login = ({ onLogin }) => {
                 console.log(response.data); // Debugging statement
                 localStorage.setItem('authToken', response.data.token);
                 onLogin(); // Notify parent about successful login
-                navigate('/overview'); // Redirect to the overview page or desired page
+                navigate('/overview'); 
             }
             else{
               console.log("problem");
@@ -31,7 +31,7 @@ const Login = ({ onLogin }) => {
             console.error('Login failed', error);
             setError('Login failed. Please check your credentials and try again.'); // Set error message
         } finally {
-            setLoading(false); // End loading
+            setLoading(false); 
         }
     };
 

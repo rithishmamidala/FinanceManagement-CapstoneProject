@@ -5,12 +5,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
+import {jwtDecode} from 'jwt-decode';
 
 const BalanceCards = () => {
     const [showModal, setShowModal] = useState(false);
     const [cardData, setCardData] = useState([]);
     const [amount, setAmount] = useState('');
-    console.log(cardData);
+    const [username, setUsername] = useState('');
+
     const [state, setState] = useState({
         number: '',
         expiry: '',
@@ -20,11 +22,23 @@ const BalanceCards = () => {
     });
 
     useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                const extractedUsername = decodedToken.username;
+                setUsername(extractedUsername);
+                console.log(extractedUsername);
+            } catch (error) {
+                console.error('Invalid token:', error);
+            }
+        }
+
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9099/api');
+                const response = await axios.get('http://localhost:2001/api');
                 setCardData(response.data);
-                
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -36,21 +50,22 @@ const BalanceCards = () => {
     const add = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:9099/api', {
+            await axios.post('http://localhost:2001/api', {
                 id: cardData.length + 1,
-                accountName: state.name,
+                accountName:  username ,
                 accountNumber: state.number,
                 cardType: "savings",
                 cvv: state.cvc,
-                balance: amount
+                balance: amount,
+                userName: state.name // Include username in the request
             });
 
             toast.success("Data posted successfully!");
 
-            const updatedData = await axios.get('http://localhost:9099/api');
+            const updatedData = await axios.get('http://localhost:2001/api');
             setCardData(updatedData.data);
 
-            setShowModal(false);  
+            setShowModal(false);
         } catch (error) {
             console.error("Something went wrong while posting data:", error);
             toast.error("Failed to post data.");
@@ -78,133 +93,123 @@ const BalanceCards = () => {
     };
 
     return (
-        <>   
-        <div className="cardsContainer">
-            {cardData.map((card, index) => (
-                <div className="card" key={index}>
-                    <div className="cardContent">
-                        <Cards
-                            number={card.accountNumber}
-                            expiry={card.expiry || "12/24"}
-                            cvc={card.cvv}
-                            name={card.accountName}
-                            focused={state.focus}
-                        />
-                        
-                    </div>
-                   
-                </div>
-            ))}
-            <div className="card">
-                <button className="addAccountButton" onClick={() => setShowModal(true)}>Add Accounts</button>
-                <p className="editAccountLink">Edit Accounts</p>
-            </div>
-
-            {showModal && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span className="close" onClick={() => setShowModal(false)}>&times;</span>
-                        <h2>Add Account</h2>
-                        <div id="PaymentForm">
+        <>
+            <div className="cardsContainer">
+                {cardData.map((card, index) => (
+                    <div className="card" key={index}>
+                        <div className="cardContent">
                             <Cards
-                                number={state.number}
-                                expiry={state.expiry}
-                                cvc={state.cvc}
-                                name={state.name}
+                                number={card.accountNumber}
+                                expiry={card.expiry || "12/24"}
+                                cvc={card.cvv}
+                                name={card.accountName}
                                 focused={state.focus}
                             />
-                            <form onSubmit={add}>
-                            <div>
-                            <input
-                            type="tel"
-                            name="number"
-                            placeholder="Card Number"
-                            value={state.number}
-                            onChange={handleInputChange}
-                            onFocus={handleInputFocus}
-                            maxLength="19"
-                            pattern="\d{16}"
-                            required
-                            onInput={(event) => {
-                            event.target.value = event.target.value.replace(/[^0-9]/g, '');
-                            }}
-                             />
-                                </div>
-
-                                <div>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        placeholder="Card name"
-                                        value={state.name}
-                                        onChange={handleInputChange}
-                                        onFocus={handleInputFocus}
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                <input
-                                type="number"
-                                name="expiry"
-                                placeholder="Expiry Date (MM/YY)"
-                                value={state.expiry}
-                                onChange={(event) => {
-                                const { value } = event.target;
-                                // Basic pattern validation for MM/YY format
-                                if (/^\d{0,2}\/?\d{0,2}$/.test(value)) {
-                                handleInputChange(event);
-                                }
-                                }}
-                                onFocus={handleInputFocus}
-                                pattern="(0[1-9]|1[0-2])\/\d{2}"
-                                required
-                            onBlur={(event) => {
-                            const { value } = event.target;
-                            
-                           
-                }}
-                    />
-                </div>
-
-                <div>
-                <input
-                type="text"       // Use text to have more control over the input
-                name="cvc"
-                placeholder="CVC"
-                value={state.cvc}
-                onChange={(e) => {
-                // Get the value and only keep the first 4 digits
-                const newValue = e.target.value.replace(/\D/g, '').slice(0, 4);
-                setState((prev) => ({ ...prev, cvc: newValue }));
-                    }}
-                onFocus={handleInputFocus}
-                inputMode="numeric" // Show numeric keyboard on mobile devices
-                maxLength="4"      // Limit input length to 4 characters
-                required
-                 />
-                </div>
-
-                                <div>
-                                    <input
-                                        type="number"
-                                        name="amount"
-                                        placeholder="Amount"
-                                        value={amount}
-                                        onChange={(e) => setAmount(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <button type="submit">Submit</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
+                ))}
+                <div className="card">
+                    <button className="addAccountButton" onClick={() => setShowModal(true)}>Add Accounts</button>
+                    <p className="editAccountLink">Edit Accounts</p>
                 </div>
-            )}
-        </div>
-        
-        <ToastContainer />
+
+                {showModal && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+                            <h2>Add Account</h2>
+                            <div id="PaymentForm">
+                                <Cards
+                                    number={state.number}
+                                    expiry={state.expiry}
+                                    cvc={state.cvc}
+                                    name={state.name}
+                                    focused={state.focus}
+                                />
+                                <form onSubmit={add}>
+                                    <div>
+                                        <input
+                                            type="tel"
+                                            name="number"
+                                            placeholder="Card Number"
+                                            value={state.number}
+                                            onChange={handleInputChange}
+                                            onFocus={handleInputFocus}
+                                            maxLength="19"
+                                            pattern="\d{16}"
+                                            required
+                                            onInput={(event) => {
+                                                event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="Card name"
+                                            value={state.name}
+                                            onChange={handleInputChange}
+                                            onFocus={handleInputFocus}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            name="expiry"
+                                            placeholder="Expiry Date (MM/YY)"
+                                            value={state.expiry}
+                                            onChange={(event) => {
+                                                const { value } = event.target;
+                                                if (/^\d{0,2}\/?\d{0,2}$/.test(value)) {
+                                                    handleInputChange(event);
+                                                }
+                                            }}
+                                            onFocus={handleInputFocus}
+                                            pattern="(0[1-9]|1[0-2])\/\d{2}"
+                                            required
+                                            onBlur={(event) => {
+                                                const { value } = event.target;
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="text"
+                                            name="cvc"
+                                            placeholder="CVC"
+                                            value={state.cvc}
+                                            onChange={(e) => {
+                                                const newValue = e.target.value.replace(/\D/g, '').slice(0, 4);
+                                                setState((prev) => ({ ...prev, cvc: newValue }));
+                                            }}
+                                            onFocus={handleInputFocus}
+                                            inputMode="numeric"
+                                            maxLength="4"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            name="amount"
+                                            placeholder="Amount"
+                                            value={amount}
+                                            onChange={(e) => setAmount(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <button type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+            <ToastContainer />
         </>
     );
 };

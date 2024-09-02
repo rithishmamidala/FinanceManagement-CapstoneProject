@@ -13,17 +13,23 @@ import Bills from './components/Bills/Bills';
 import Expenses from './components/Expenses/expenses';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
+import { GiConsoleController } from 'react-icons/gi';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); // New loading state
 
     useEffect(() => {
         // Check if the user is logged in by checking for a token in localStorage
+        localStorage.clear();
         const token = localStorage.getItem('authToken');
-        
+        console.log(token);
         if (token) {
             setIsLoggedIn(true);
         }
+        
+    
+        setIsLoading(false); // Set loading to false after check is complete
     }, []);
 
     const handleLogin = () => {
@@ -35,63 +41,61 @@ const App = () => {
         setIsLoggedIn(false);
     };
 
+    if (isLoading) {
+        return <div>Loading...</div>; // Optional: Add a loading spinner or message
+    }
+
     return (
         <Router>
-            <div >
-                {/* Render Login if not logged in */}
-                {!isLoggedIn ? (
-                    <Routes>
-                        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-                        <Route path="*" element={<Navigate to="/login" replace />} /> {/* Redirect to login */}
-                    </Routes>
-                ) : (
-                    
+            <div>
+                {isLoggedIn ? (
                     <div className="appContainer">
                         {isLoggedIn && <Sidebar />}
                         <div className="mainContent">
-                        <Header/>
+                            <Header />
+                            <Routes>
+                                {/* Protected routes */}
+                                <Route path="/overview" element={
+                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                                        <Overview />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/balance" element={
+                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                                        <BalanceCards />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/transactions" element={
+                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                                        <Transaction />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/bills" element={
+                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                                        <Bills />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/expenses" element={
+                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                                        <Expenses />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/goals" element={
+                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                                        <Goals />
+                                    </ProtectedRoute>
+                                } />
+                                {/* Redirect to login if route is not found */}
+                                <Route path="*" element={<Navigate to={isLoggedIn ? "/overview" : "/login"} replace />} />
+                            </Routes>
+                        </div>
+                    </div>
+                ) : (
+                    <Routes>
+                        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+                        <Route path="*" element={<Navigate to="/login" replace />} />
                         
-                        <Routes>
-                       
-
-                        {/* Protected routes */}
-                        <Route path="/overview" element={
-                            <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                <Overview />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/balance" element={
-                            <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                <BalanceCards />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/transactions" element={
-                            <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                <Transaction />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/bills" element={
-                            <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                <Bills />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/expenses" element={
-                            <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                <Expenses />
-                            </ProtectedRoute>
-                        } />
-                        <Route path="/goals" element={
-                            <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                <Goals />
-                            </ProtectedRoute>
-                        } />
-
-                        {/* Redirect to login if route is not found */}
-                        <Route path="*" element={<Navigate to={isLoggedIn ? "/overview" : "/login"} replace />} />
-                    </Routes>
-                        </div>
-                        </div>
-                    
+                        </Routes>
                 )}
             </div>
         </Router>
