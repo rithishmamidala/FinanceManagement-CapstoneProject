@@ -3,6 +3,7 @@ package capstoneProject.Secure.control;
 import capstoneProject.Secure.config.CustomUserDetails;
 import capstoneProject.Secure.model.Person;
 import capstoneProject.Secure.service.AuthService;
+import capstoneProject.Secure.service.JwtService;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import java.util.Map;
 public class PersonController {
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private JwtService jwtService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -50,15 +54,23 @@ public class PersonController {
         }
     }
 //
-    @GetMapping("/validate")
-    public ResponseEntity<String> validateToken(@RequestParam("token") String token) {
-        try {
-            authService.validateToken(token);
-            return ResponseEntity.ok("Token is valid");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
-        }
+@GetMapping("/validate")
+public ResponseEntity<String> validateToken(@RequestParam("token") String token) {
+    try {
+        // Validate the token
+        authService.validateToken(token);
+
+        // Extract username from the token
+        String username = jwtService.extractUsername(token);
+
+        // Return username if token is valid
+        return ResponseEntity.ok(username);
+    } catch (RuntimeException e) {
+        // Return error message if token is invalid or expired
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
     }
+}
+
 
 
 //    public String validateToken(@RequestParam("token") String token) {

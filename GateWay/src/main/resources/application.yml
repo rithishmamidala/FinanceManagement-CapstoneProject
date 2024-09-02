@@ -9,12 +9,12 @@ spring:
 #          filters:
 #            - AuthenticationFilter
 
-#        - id: auth-service
-#          uri: lb://auth-service
-#          predicates:
-#            - Path=/auth/**
-        - id: Accounts
+        - id: Secure
           uri: http://localhost:9099
+          predicates:
+            - Path=/person/**
+        - id: Accounts
+          uri: http://localhost:2001
           predicates:
             - Path=/api/**
 #          filters:

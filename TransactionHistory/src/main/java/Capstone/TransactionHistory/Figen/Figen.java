@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "accounts-service", url = "http://localhost:9099/api")
+@FeignClient(name = "accounts-service", url = "http://localhost:7000/api")
 public interface Figen {
 
     @PutMapping("/accounts/updateBalance")

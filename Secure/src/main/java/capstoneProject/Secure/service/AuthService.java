@@ -28,10 +28,10 @@ public class AuthService {
             throw new UserExistException("User already");
         }
     }
-public String generateToken(String username)
-{
-    return jwtService.generateToken(username);
-}
+    public String generateToken(String username)
+    {
+        return jwtService.generateToken(username);
+    }
 
     public void validateToken(String token) {
         jwtService.validateToken(token);

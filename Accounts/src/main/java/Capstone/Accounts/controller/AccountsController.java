@@ -3,6 +3,7 @@ package Capstone.Accounts.controller;
 import Capstone.Accounts.dto.AccountsDTO;
 import Capstone.Accounts.model.Accounts;
 import Capstone.Accounts.repo.Repository;
+import Capstone.Accounts.service.service;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class AccountsController {
 
     @Autowired
     private Repository repo;
+
+    @Autowired
+    private service serve;
 
     @PostMapping
     public ResponseEntity<Accounts> add(@Valid @RequestBody AccountsDTO accountDTO) {
@@ -61,5 +65,11 @@ public class AccountsController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/validate")
+    public String validate(@RequestParam("token") String token)
+    {
+        return serve.validate(token);
     }
 }

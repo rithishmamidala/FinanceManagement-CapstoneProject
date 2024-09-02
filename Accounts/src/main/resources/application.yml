@@ -13,4 +13,4 @@ spring:
    # Minimum number of idle connections in the pool
 
 server:
-  port: 9099
+  port: 2001
