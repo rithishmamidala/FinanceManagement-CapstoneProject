@@ -22,7 +22,8 @@ public class Transactions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
-    private String accountName; // Primary key
+    private String accountName;
+    private String userName;// Primary key
     private Long ItemId;
     private String Goal;
     private String transactionType;

@@ -24,6 +24,8 @@ public class TransactionsDTO {
 
     @NotBlank(message = "Goal is required")
     private String goal;
+    
+    @Not
 
     @NotBlank(message = "Transaction type is required")
     private String transactionType;

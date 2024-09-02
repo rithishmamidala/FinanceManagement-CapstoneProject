@@ -5,7 +5,10 @@ import Capstone.Accounts.model.Accounts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 
 public interface Repository extends JpaRepository<Accounts,Long> {
-    Accounts findByAccountName(String accountName);
+
+List<Accounts> findByAccountName(String accountName);
 }
