@@ -37,7 +37,10 @@ const BalanceCards = () => {
 
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:2001/api');
+                const response = await axios.get('http://localhost:2001/api',  {
+                    headers: {
+                    'Authorization': `Bearer ${token}`,
+                  } , });
                 setCardData(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);

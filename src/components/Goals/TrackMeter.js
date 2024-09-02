@@ -10,7 +10,11 @@ const TrackMeter = () => {
   useEffect(() => {
     const fetchAccountsData = async () => {
       try {
-        const response = await axios.get('http://localhost:7000/api');
+        const token = localStorage.getItem('authToken');
+        const response = await axios.get('http://localhost:2001/api',  {
+          headers: {
+          'Authorization': `Bearer ${token}`,
+        } , });
         const accounts = response.data;
         const total = accounts.reduce((sum, account) => sum + account.balance, 0);
         setTotalBalance(total);
@@ -21,7 +25,11 @@ const TrackMeter = () => {
 
     const fetchTransactionData = async () => {
       try {
-        const response = await axios.get('http://localhost:2002/TransactionHistory');
+        const token = localStorage.getItem('authToken');
+        const response = await axios.get('http://localhost:2002/TransactionHistory',  {
+          headers: {
+          'Authorization': `Bearer ${token}`,
+        } , });
         const transactions = response.data;
 
         // Extracting month and year from the transaction date

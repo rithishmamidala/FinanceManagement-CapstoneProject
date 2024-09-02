@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Transaction.css'; // Assume you have a corresponding CSS file
+import {jwtDecode} from 'jwt-decode'; // Correct import
 
 const Transaction = () => {
   const [transactions, setTransactions] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [username, setUsername] = useState('');
   const [newTransaction, setNewTransaction] = useState({
     accountName: '',
     goal: '',
     transactionType: '',
     date: '',
     amount: '',
+    userName: '', // Add userName to the state
   });
 
   const [uniqueAccountNames, setUniqueAccountNames] = useState([]);
@@ -21,9 +24,29 @@ const Transaction = () => {
   const rowsPerPage = 7;
 
   useEffect(() => {
+    const token = localStorage.getItem('authToken');
+
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const extractedUsername = decodedToken.username;
+        setUsername(extractedUsername);
+        setNewTransaction(prevState => ({
+          ...prevState,
+          userName: extractedUsername, // Set userName in state
+        }));
+      } catch (error) {
+        console.error('Invalid token:', error);
+      }
+    }
+
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:2002/TransactionHistory');
+        const response = await axios.get('http://localhost:2002/TransactionHistory',  {
+          headers: {
+          'Authorization': `Bearer ${token}`,
+        } , });
+        
         setTransactions(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -31,8 +54,13 @@ const Transaction = () => {
     };
 
     const fetchAccounts = async () => {
+      const token = localStorage.getItem('authToken'); // Make sure token is available here
       try {
-        const response = await axios.get('http://localhost:7000/api'); // Adjust the URL as needed
+        const response = await axios.get('http://localhost:2001/api', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         const accountNames = [...new Set(response.data.map(transaction => transaction.accountName))];
         setUniqueAccountNames(accountNames);
       } catch (error) {
@@ -64,7 +92,8 @@ const Transaction = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:2002/TransactionHistory', newTransaction);
+      const response = await axios.post('http://localhost:2002/TransactionHistory', newTransaction);
+      console.log('Response:', response.data); // Debug response
 
       // Fetch updated transaction list after adding
       const updatedData = await axios.get('http://localhost:2002/TransactionHistory');
@@ -77,6 +106,7 @@ const Transaction = () => {
         transactionType: '',
         date: '',
         amount: '',
+        userName: username, // Ensure userName is included
       });
     } catch (error) {
       console.error('Something went wrong while posting data:', error);

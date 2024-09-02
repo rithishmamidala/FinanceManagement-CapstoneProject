@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BarGraph from '../BarGraph/barGraph';
 import './expenses.css';
+import {jwtDecode} from 'jwt-decode';
 
 function Expenses() {
     const [targetAmounts, setTargetAmounts] = useState([]);
@@ -29,9 +30,18 @@ function Expenses() {
 
     // Fetch transactions and aggregate monthly data
     useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        
+        if (token) {
+           
+        }
         const fetchMonthlyData = async () => {
             try {
-                const response = await axios.get('http://localhost:2002/TransactionHistory');
+                const token = localStorage.getItem('authToken');
+                const response = await axios.get('http://localhost:2002/TransactionHistory',  {
+                    headers: {
+                    'Authorization': `Bearer ${token}`,
+                  } , });
                 const transactions = response.data;
                 aggregateMonthlyData(transactions);
                 calculateMonthlyTotals(transactions); // Calculate totals for current and previous months
