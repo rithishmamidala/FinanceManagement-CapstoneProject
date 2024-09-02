@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Overview from './components/Overview/overview';
@@ -13,22 +13,20 @@ import Bills from './components/Bills/Bills';
 import Expenses from './components/Expenses/expenses';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
-import { GiConsoleController } from 'react-icons/gi';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true); // New loading state
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         // Check if the user is logged in by checking for a token in localStorage
-        localStorage.clear();
+        localStorage.clear(); // Clear localStorage for testing purposes
         const token = localStorage.getItem('authToken');
-        console.log(token);
+        
         if (token) {
             setIsLoggedIn(true);
         }
-        
-    
+
         setIsLoading(false); // Set loading to false after check is complete
     }, []);
 
@@ -50,7 +48,7 @@ const App = () => {
             <div>
                 {isLoggedIn ? (
                     <div className="appContainer">
-                        {isLoggedIn && <Sidebar />}
+                        <Sidebar />
                         <div className="mainContent">
                             <Header />
                             <Routes>
@@ -85,17 +83,44 @@ const App = () => {
                                         <Goals />
                                     </ProtectedRoute>
                                 } />
-                                {/* Redirect to login if route is not found */}
+                                {/* Redirect to overview or login based on isLoggedIn */}
                                 <Route path="*" element={<Navigate to={isLoggedIn ? "/overview" : "/login"} replace />} />
                             </Routes>
                         </div>
                     </div>
                 ) : (
-                    <Routes>
-                        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-                        <Route path="*" element={<Navigate to="/login" replace />} />
-                        
-                        </Routes>
+                    <div className="App">
+                        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+                            <div className="container">
+                                <Link className="navbar-brand" to={'/sign-in'}>
+                                    positronX
+                                </Link>
+                                <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+                                    <ul className="navbar-nav ml-auto">
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to={'/sign-in'}>
+                                                Login
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to={'/sign-up'}>
+                                                Sign up
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+
+                        <div className="auth-wrapper">
+                            <div className="auth-inner">
+                                <Routes>
+                                    <Route path="/login" element={<Login onLogin={handleLogin} />} />
+                                    <Route path="*" element={<Navigate to="/login" replace />} />
+                                </Routes>
+                            </div>
+                        </div>
+                    </div>
                 )}
             </div>
         </Router>

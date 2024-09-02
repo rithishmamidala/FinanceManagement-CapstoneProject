@@ -38,28 +38,44 @@ const Login = ({ onLogin }) => {
     return (
         <div className="loginContainer">
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="username">Username</label>
+                <h3>Sign In</h3>
+                <div className="mb-3">
+                    <label> username</label>
                     <input
                         type="text"
-                        id="username"
+                        className='form-control'
                         value={username}
+                        placeholder='enter email'
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="mb-3">
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
-                        id="password"
+                        className='form-control'
                         value={password}
+                        placeholder='enter password'
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </div>
+                <div className="mb-3">
+          <div className="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              className="custom-control-input"
+              id="customCheck1"
+            />
+             <label className="custom-control-label" htmlFor="customCheck1">
+              Remember me
+            </label>
+          </div>
+        </div>
                 {error && <div className="error">{error}</div>} {/* Display error message */}
-                <button type="submit" disabled={loading}>
+                
+                <button type="submit" className="btn btn-primary"disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'} {/* Loading state */}
                 </button>
             </form>
