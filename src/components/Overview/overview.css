@@ -57,7 +57,7 @@
 .overview-goals-container h1,
 .overview-bills-container h1 {
     font-size:20px;
-    margin-bottom: 15px; /* Adjust margin to save space */
+   
     color: #333;
     text-align: center;
    
@@ -197,4 +197,7 @@
 
 .overview-recenttransactions-container h1{
     font-size:20px
+}
+.track-meter,h1{
+    margin-bottom:5px;
 }

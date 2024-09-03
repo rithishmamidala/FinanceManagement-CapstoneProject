@@ -94,7 +94,7 @@ const Overview = () => {
 
       <div className="overview-section overview-top-section">
         <div className="overview-balance-container">
-          <h1 style={{"marginBottom":"20px"}}>Total Balance</h1>
+          <h1 style={{"marginBottom":"20px","font-size":"20px"}}>Total Balance</h1>
           <div className="overview-card-part">
             <BalanceCards showFirstCardOnly={true} currentCardIndex={currentCardIndex} />
           </div>
@@ -112,25 +112,26 @@ const Overview = () => {
         <div className="overview-goals-container">
        
           <div className="track-meter">
+          <h1 style={{"margin-bottom":"20px","font-size":"20px"}}>Trackmeter</h1>
           <TrackMeter />
           </div>
         </div>
 
         <div className="overview-bills-container">
-          <h1>Upcoming Bills</h1>
+          <h1 style={{"margin-bottom":"20px","font-size":"20px"}}>Upcoming Bills</h1>
           <BillsList />
         </div>
       </div>
 
       <div className="overview-section overview-middle-section">
         <div className="overview-recenttransactions-container">
-          <h1>Recent Transactions</h1>
+          <h1 style={{"margin-bottom":"20px","font-size":"20px","text-align":"center"}}>Recent Transactions</h1>
           <RecentTransaction />
         </div>
 
         <div className="overview-graphs-container">
           <div className="overview-bargraph-container">
-            <h1>Monthly Bar Graph</h1>
+            <h1 style={{"margin-bottom":"20px","font-size":"20px"}}>Monthly Bar Graph</h1>
             <BarGraph 
               months={monthlyData.months} 
               creditAmounts={monthlyData.creditAmounts} 
@@ -139,7 +140,7 @@ const Overview = () => {
           </div>
           
           <div className="overview-expensebreakdown-container">
-            <h1>Expense Breakdown</h1>
+            <h1 style={{"marginBottom":"20px","font-size":"20px"}}>Expense Breakdown</h1>
             <ExpenseBreakdown />
           </div>
         </div>
@@ -150,4 +151,3 @@ const Overview = () => {
 };
 
 export default Overview;
-

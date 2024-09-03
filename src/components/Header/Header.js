@@ -36,7 +36,7 @@ class Header extends Component {
         return (
             <div className="header">
                 <div>
-                    <h2>Hi, {username}</h2>
+                    <h2>Hi,{username}</h2>
                     <p>{today}</p>
                 </div>
                 <div className="headerIcons">

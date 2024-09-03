@@ -79,11 +79,20 @@ function Goals() {
 
     return (
         <div className="container mt-5 goals-container">
+           
+            
+            {/* <div className="trackmeter-container trackmeter-goals"> */}
+            {/* <h1 style={{"text-align":"center" ,"font-size":"20px"}}>Trackmeter</h1>
+            <div className="trackmeter-container">
+            
             <TrackMeter />
+            </div> */}
+            {/* </div> */}
+            
 
             <div className="card mb-3">
                 <div className="card-body">
-                    <h5>Expenses Goals by Category</h5>
+                    <h5 style={{"text-align":"center" ,"font-size":"20px"}}>Expenses Goals by Category</h5>
                     <div className="row">
                         {expenseGoals.map((goal, index) => (
                             <div key={index} className="col-md-4 mb-3">

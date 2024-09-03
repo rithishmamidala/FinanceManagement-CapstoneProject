@@ -1,13 +1,17 @@
+.total{
+  background-color: #cff0e7;
+  height: 100vh;
+}
+
 .appContainer {
   display: flex;
-  background-color: #f8f6f6;
+  background-color: #cff0e7;
   /* position: fixed; */
 
 }
 /* index.css or App.css */
-body {
-  font-family: 'Roboto', sans-serif;
-}
+/* body {
+  /* font-family: 'Roboto', sans-serif;} */
 
 .mainContent {
   flex: 1;

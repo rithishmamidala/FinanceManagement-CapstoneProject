@@ -40,7 +40,8 @@ const Login = ({ onLogin }) => {
       <div className="signup-image"></div>
       <div className="signup-form-container">
         <form onSubmit={handleSubmit} className="signup-form">
-          <h2>Personal Finance Management System</h2>
+        <h1>Fin.Track</h1>
+        <h3> Login </h3>
           <label>Username</label>
           <input
             type="text"

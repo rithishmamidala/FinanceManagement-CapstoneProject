@@ -46,12 +46,14 @@ const App = () => {
 
     return (
         <Router>
-            <div>
+            <div className='total'>
                 {isLoggedIn ? (
                     <div className="appContainer">
                         <Sidebar />
                         <div className="mainContent">
+                             
                             <Header />
+                        
                             <Routes>
                                 {/* Protected routes */}
                                 <Route path="/overview" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Overview /></ProtectedRoute>} />

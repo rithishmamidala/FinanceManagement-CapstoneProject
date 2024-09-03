@@ -1,4 +1,3 @@
-// src/components/BillsList/BillsList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './BillsList.css';
@@ -43,13 +42,13 @@ const BillsList = () => {
   return (
     <div className="bills-list-container">
       <table className="bills-list-table">
-        {/* <thead>
+        <thead>
           <tr>
             <th>Due Date</th>
             <th>Bill Name</th>
             <th>Amount</th>
           </tr>
-        </thead> */}
+        </thead>
         <tbody>
           {displayedBills.map((bill, index) => {
             const { monthName, day, year } = formatMonthAndYear(bill.duedate);
@@ -72,7 +71,7 @@ const BillsList = () => {
         {Array.from({ length: totalPages }).map((_, index) => (
           <span
             key={index}
-            className={`bills-list-dot ${index === currentPage ? 'bills-list-dot active' : 'bills-list-dot'}`}
+            className={`bills-list-dot ${index === currentPage ? 'active' : ''}`}
             onClick={() => handleDotClick(index)}
           ></span>
         ))}
