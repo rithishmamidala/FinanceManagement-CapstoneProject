@@ -36,4 +36,8 @@ public class AuthService {
     public void validateToken(String token) {
         jwtService.validateToken(token);
     }
+    public boolean isUserRegistered(String username) {
+        // Check if a user with the given username already exists in the database
+        return userRepository.existsByUsername(username);
+    }
 }

@@ -21,4 +21,6 @@ public class Accounts {
     private String cardType;
     private Long CVV;
     private Long balance;
+
+
 }

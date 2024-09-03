@@ -32,10 +32,21 @@ public class PersonController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
-    public String registerPerson(@RequestBody Person user) {
-        user = authService.saveUser(user);
-        return authService.generateToken(user.getUsername());
+    public ResponseEntity<String> registerPerson(@RequestBody Person user) {
+        try {
+            if (authService.isUserRegistered(user.getUsername())) { // Check if user is already registered
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("User already registered");
+            }
+
+            user = authService.saveUser(user);
+            String token = authService.generateToken(user.getUsername());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(token);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during registration");
+        }
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> getToken(@RequestBody Person authRequest) {

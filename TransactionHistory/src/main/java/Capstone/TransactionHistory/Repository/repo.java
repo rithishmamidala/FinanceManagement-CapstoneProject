@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface repo extends JpaRepository<Transactions,String> {
     List<Transactions> findByUserName(String userName);
+    boolean existsByAccountNumber(String accountNumber);
 }

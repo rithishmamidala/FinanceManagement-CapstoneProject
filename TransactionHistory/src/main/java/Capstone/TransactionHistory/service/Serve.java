@@ -29,8 +29,8 @@ public class Serve {
         Long newBalance;
 
         if (transaction.getTransactionType().equalsIgnoreCase("credit")) {
-            newBalance = original + transaction.getAmount();
-        } else if (transaction.getTransactionType().equalsIgnoreCase("debit")) {
+            newBalance = original + transaction.getAmount();}
+         else if (transaction.getTransactionType().equalsIgnoreCase("debit")) {
             newBalance = original - transaction.getAmount();
         } else {
             throw new IllegalArgumentException("Invalid transaction type");

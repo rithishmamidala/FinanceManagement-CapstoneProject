@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -29,17 +30,23 @@ public class AccountsController {
 
     @PostMapping
     public ResponseEntity<Accounts> add(@Valid @RequestBody AccountsDTO accountDTO) {
-        Accounts account = new Accounts(
-                accountDTO.getId(),
-                accountDTO.getUserName(),
-                accountDTO.getAccountName(),
-                accountDTO.getAccountNumber(),
-                accountDTO.getCardType(),
-                accountDTO.getCVV(),
-                accountDTO.getBalance()
-        );
-        return new ResponseEntity<>(repo.save(account), HttpStatus.CREATED);
+        Optional<Accounts> existingAccount = repo.findByAccountNumber(accountDTO.getAccountNumber());
+        if (existingAccount.isPresent()) {
+            return new ResponseEntity<>( HttpStatus.CONFLICT);
+        }
+            Accounts account = new Accounts(
+                    accountDTO.getId(),
+                    accountDTO.getUserName(),
+                    accountDTO.getAccountName(),
+                    accountDTO.getAccountNumber(),
+                    accountDTO.getCardType(),
+                    accountDTO.getCVV(),
+                    accountDTO.getBalance()
+            );
+            return new ResponseEntity<>(repo.save(account), HttpStatus.CREATED);
+
     }
+
 
 
     @PutMapping("/accounts/updateBalance")
@@ -48,8 +55,6 @@ public class AccountsController {
         if (account != null) {
             account.setBalance(newBalance);
             repo.save(account);
-
-
         }
     }
 
@@ -59,7 +64,7 @@ public class AccountsController {
         if (account != null) {
             return account.getBalance();
         } else {
-            return null;
+            throw new IllegalStateException(" Account not found");
         }
     }
 
