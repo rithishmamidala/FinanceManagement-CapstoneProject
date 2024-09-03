@@ -1,23 +1,19 @@
 .bills-list-container {
-  padding: 20px;
-  max-width: 100%;
-  box-sizing: border-box;
+  margin-top: 1rem;
 }
 
 .bills-list-table {
+  border: 1px solid;
   width: 100%;
-  border-collapse: collapse;
 }
 
 .bills-list-table th, .bills-list-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  padding: 5px;
   text-align: left;
 }
 
 .bills-list-table th {
   background-color: #f4f4f4;
-  font-weight: bold;
 }
 
 .bills-list-date {
@@ -29,23 +25,27 @@
 }
 
 .bills-list-dotsContainer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 5px; /* Adjust the space between dots */
-  margin-top: 10px;
-  max-width: 100%; /* Ensure the dots container does not exceed the width of its parent */
-  overflow-x: auto; /* Add horizontal scrolling if dots exceed the container width */
+  margin-top:0px;
+  text-align: center;
+  margin-top: 1px;
 }
 
 .bills-list-dot {
+  margin-top:0px;
   height: 10px;
   width: 10px;
   background-color: #bbb;
   border-radius: 50%;
+  display: inline-block;
+  margin: 0 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .bills-list-dot.active {
-  background-color: #717171;
+  background-color: #007bff;
+}
+
+.bills-list-dot:hover {
+  background-color: #0056b3;
 }
