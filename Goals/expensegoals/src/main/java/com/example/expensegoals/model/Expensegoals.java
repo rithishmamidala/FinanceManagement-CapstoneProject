@@ -17,6 +17,6 @@ public class Expensegoals {
     private String goalName;
     private String goalDescription;
     private Long amount;
-    
+    private String userName;
 
 }

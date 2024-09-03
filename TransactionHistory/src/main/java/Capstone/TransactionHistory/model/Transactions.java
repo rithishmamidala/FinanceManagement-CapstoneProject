@@ -23,10 +23,8 @@ public class Transactions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
     private String accountName;
-    private String userName;// Primary key
-    private Long ItemId;
-    private String Goal;
+    private String userName;
     private String transactionType;
-    private LocalDate date;
+    private String date;
     private Long amount;
 }

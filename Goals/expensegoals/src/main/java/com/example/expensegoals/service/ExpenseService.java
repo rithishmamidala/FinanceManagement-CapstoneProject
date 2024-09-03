@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class ExpenseService {
     @Autowired
     private ExpenseRepository goalsRepository;
+
     public Expensegoals addExpensegoals(Expensegoals goals){
         return goalsRepository.save(goals);
     }

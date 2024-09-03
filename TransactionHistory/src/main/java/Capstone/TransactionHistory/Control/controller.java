@@ -22,7 +22,6 @@ public class controller {
     @Autowired
     private repo rep;
 
-
     @GetMapping
     public List<Transactions> validate(@RequestHeader(HttpHeaders.AUTHORIZATION) String token)
     {

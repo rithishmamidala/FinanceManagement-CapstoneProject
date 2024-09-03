@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface repo extends JpaRepository<Transactions,String> {
+public interface repo extends JpaRepository<Transactions, Long> {
+//    boolean existsByAccountNumber(String accountNumber);
     List<Transactions> findByUserName(String userName);
-    boolean existsByAccountNumber(String accountNumber);
 }

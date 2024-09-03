@@ -23,6 +23,7 @@ public class Serve {
 
     @Transactional
     public void processTransaction(Transactions transaction) {
+
         rep.save(transaction);
 
         Long original = accountFeignClient.getBalance(transaction.getAccountName());
@@ -30,7 +31,7 @@ public class Serve {
 
         if (transaction.getTransactionType().equalsIgnoreCase("credit")) {
             newBalance = original + transaction.getAmount();}
-         else if (transaction.getTransactionType().equalsIgnoreCase("debit")) {
+        else if (transaction.getTransactionType().equalsIgnoreCase("debit")) {
             newBalance = original - transaction.getAmount();
         } else {
             throw new IllegalArgumentException("Invalid transaction type");
