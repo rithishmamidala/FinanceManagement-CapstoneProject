@@ -1,0 +1,185 @@
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 50px;
+    justify-content: center;
+    padding: 20px;
+  
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    width: 100%; /* Full width of the grid cell */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* transition: transform 0.3s ease; */
+   
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.cardLogo {
+    width: 40px;
+    height: auto;
+}
+
+.card h4 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #666;
+    margin: 5px 0;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    color: black;
+    margin: 15px 0;
+}
+
+.cardActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.removeButton,
+.detailsButton {
+    background-color: #20b2aa;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.removeButton:hover,
+.detailsButton:hover {
+    background-color: #59cf94;
+}
+
+.addAccountButton {
+    background-color: #59cf94;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.addAccountButton:hover {
+    background-color: #20b2aa;
+}
+
+.editAccountLink {
+    color:#59cf94;
+    cursor: pointer;
+    margin-top: 15px;
+    text-decoration: underline;
+}
+
+/* .editAccountLink:hover {
+    color: #59cf94;
+} */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+h2 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+#PaymentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+input:focus {
+    border-color: #20b2aa;
+    outline: none;
+    box-shadow: 0 0 5px rgba(32, 178, 170, 0.5);
+}
+
+button {
+    background-color: #20b2aa;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #59cf94;
+}
+
+/* Add margin to the form */
+form {
+    margin-bottom:5px;
+    margin-top: 20px;
+}
+input{
+    margin-bottom:5px;
+}

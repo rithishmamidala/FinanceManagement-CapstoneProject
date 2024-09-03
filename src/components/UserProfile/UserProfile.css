@@ -1,0 +1,28 @@
+.profileSection {
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.profileImg {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.profileName {
+    margin: 0;
+    font-size: 14px;
+}
+
+.profileLink {
+    color: #20b2aa;
+    font-size: 12px;
+    text-decoration: none;
+}
