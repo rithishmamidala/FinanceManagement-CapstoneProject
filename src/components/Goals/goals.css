@@ -107,4 +107,30 @@
 .popup-form button {
     margin: 10px;
 }
-
+.trackmeter-container,h2{
+    text-align:center
+    
+}
+.trackmeter-container {
+    text-align: center;
+    width: 20%; /* Adjust width to be smaller */
+    height:100px;
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 1px; 
+  }
+  
+  .trackmeter-heading {
+    margin-bottom: 20px;
+    text-align: center; 
+  }
+  
+  .gauge-chart-container {
+    display: inline-block; /* Allows the chart to be sized and centered properly */
+    width: 150px; /* Adjust width as needed */
+    height: 150px; /* Adjust height as needed */
+  }
+  
+  .gauge-chart-container .gauge-chart {
+    width: 100%; /* Ensures the gauge chart fills the container */
+    height: 100%; /* Ensures the gauge chart fills the container */
+  }

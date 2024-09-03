@@ -9,31 +9,31 @@ function ExpenseBreakdown() {
     const [categoryData, setCategoryData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 4;
-
     useEffect(() => {
         const token = localStorage.getItem('authToken');
 
         if (token) {
-            try {
-                const decodedToken = jwtDecode(token);
-                const extractedUsername = decodedToken.username;
-                setUsername(extractedUsername);
-                setNewTransaction(prevState => ({
-                    ...prevState,
-                    userName: extractedUsername,
-                }));
-            } catch (error) {
-                console.error('Invalid token:', error);
-            }
+          try {
+            const decodedToken = jwtDecode(token);
+            const extractedUsername = decodedToken.username;
+            setUsername(extractedUsername);
+            setNewTransaction(prevState => ({
+              ...prevState,
+              userName: extractedUsername, // Set userName in state
+            }));
+          } catch (error) {
+            console.error('Invalid token:', error);
+          }
+       
         }
-
         const fetchAndCalculateTotals = async () => {
+
             try {
-                const response = await axios.get('http://localhost:2002/TransactionHistory', {
+                const response = await axios.get('http://localhost:2002/TransactionHistory',  {
                     headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                });
+                    'Authorization': `Bearer ${token}`,
+                  } , });
+               
                 calculateMonthlyTotals(response.data);
             } catch (error) {
                 console.error('Error fetching transactions:', error);
@@ -41,7 +41,8 @@ function ExpenseBreakdown() {
         };
         fetchAndCalculateTotals();
     }, []);
-
+    
+    // Fetch transactions and calculate totals
     const calculateMonthlyTotals = (transactions) => {
         const today = new Date();
         const currentMonth = today.getMonth();
@@ -116,9 +117,10 @@ function ExpenseBreakdown() {
         return percentageChange > 0 ? '▲' : '▼';
     };
 
-    const totalPages = Math.ceil(categoryData.length / itemsPerPage);
-
-    const paginatedData = categoryData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    const totalPages = Math.ceil((categoryData.length - 4) / itemsPerPage) + 1;
+    const paginatedData = currentPage === 1
+        ? categoryData.slice(0, itemsPerPage)
+        : categoryData.slice(4 + (currentPage - 2) * itemsPerPage, 4 + (currentPage - 1) * itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);

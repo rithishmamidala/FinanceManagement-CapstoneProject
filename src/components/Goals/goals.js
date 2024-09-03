@@ -124,7 +124,7 @@ function Goals() {
                                 Close
                             </Button>
                             <Button variant="primary" onClick={add}>
-                                Save Changes
+                                Submit
                             </Button>
                         </div>
                     </div>

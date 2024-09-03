@@ -80,8 +80,8 @@ const RecentTransaction = () => {
     <div className="recent-transactions">
       <div className="tabs">
         <span onClick={() => setSelectedTab('all')} className={selectedTab === 'all' ? 'active' : ''}>All</span>
-        <span onClick={() => setSelectedTab('revenue')} className={selectedTab === 'revenue' ? 'active' : ''}>Revenue</span>
-        <span onClick={() => setSelectedTab('expense')} className={selectedTab === 'expense' ? 'active' : ''}>Expense</span>
+        {/* <span onClick={() => setSelectedTab('revenue')} className={selectedTab === 'revenue' ? 'active' : ''}>Revenue</span>
+        <span onClick={() => setSelectedTab('expense')} className={selectedTab === 'expense' ? 'active' : ''}>Expense</span> */}
       </div>
 
       <table className="table table-striped table-hover">

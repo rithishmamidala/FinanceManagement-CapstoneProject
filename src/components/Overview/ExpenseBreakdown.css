@@ -73,9 +73,10 @@
 
 .category-box {
     border: 1px solid #e0e0e0;
+   
     border-radius: 10px; /* Slightly more rounded corners */
-    padding: 20px;
-    width: 250px; /* Increased width for more content space */
+    padding: 10px;
+    width: 200px; /* Increased width for more content space */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #ffffff; /* Cleaner background color */
     transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
@@ -164,10 +165,12 @@
 .expense-summary {
     margin-bottom: 20px;
 }
+
 .pagination-dot {
     display: inline-block;
-    width: 10px;
-    height: 10px;
+   
+    width: 5px;
+    height: 5px;
     margin: 0 5px;
     background-color: #ccc;
     border-radius: 50%;
@@ -178,3 +181,7 @@
 .pagination-dot.active {
     background-color: #333;
 }
+.pagination{
+    margin-top:1rem;
+}
+

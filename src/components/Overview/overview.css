@@ -36,6 +36,18 @@
     min-width: 30%; /* Ensure each section has a minimum width */
     height: 250px; /* Decrease the height of the components */
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+   
+    
+}
+.overview-balance-container{
+    margin-top:10px;
+    transform: translateY(-10px); /* Move the component up by 10px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+}
+.overview-goals-container:hover{
+    transform: translateY(-10px); /* Move the component up by 10px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
     
 }
 
@@ -47,15 +59,17 @@
     margin-bottom: 15px; /* Adjust margin to save space */
     color: #333;
     text-align: center;
+   
 }
+
 .overview-goals-container {
     flex: 1;
-    margin: 10px 5px;
+    margin: 0px 5px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    min-width: 30%; /* Ensure it has enough width */
+    display:flex;
     height: 250px; /* Increase the height to accommodate the speedometer */
     display: flex; /* Use flexbox to center the content */
     justify-content: center; /* Center horizontally */
@@ -81,8 +95,8 @@
 }
 
 .overview-dot {
-    height: 10px;
-    width: 10px;
+    height: 5px;
+    width: 5px;
     margin: 0 5px;
     background-color: #bbb;
     border-radius: 50%;
@@ -112,13 +126,25 @@
     height: 800px; /* Increased height to make it taller */
     width:100px;
     overflow-y: auto; /* Allow scrolling if content overflows */
-    
+
+   
 }
+.overview-recenttransactions-container:hover{
+    transform: translateY(-5px); /* Move the component up by 10px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+}
+    
+
 
 .overview-graphs-container {
     flex: 1;
     display: flex;
     flex-direction: column; /* Stack Bar Graph and Expense Breakdown vertically */
+}
+.overview-bargraph-container:hover{
+    transform: translateY(-5px); /* Move the component up by 10px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+
 }
 
 .overview-bargraph-container{
@@ -133,23 +159,41 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     
-    margin-bottom: 20px;
-    height:400px;
+    /* margin-bottom: 20px; */
+    height:420px;
 }
+.overview-expensebreakdown-container:hover {
+    transform: translateY(-5px); /* Move the component up by 10px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+}
+
 
 .overview-bargraph-container h1,
 .overview-expensebreakdown-container h1 {
+    margin-top:10px;
     font-size: 20px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     color: #333;
     text-align:center
 }
-.track-meter{
-    max-width: 90%; /* Ensure the width fits the container */
-    max-height: 90%; /* Ensure the height fits the container */
+.overview-track-meter {
+    max-width: 100%; 
+    max-height: 100%; 
     width: auto;
     height: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for the hover effect */
 }
+
+.overview-track-meter:hover {
+    transform: translateY(-10px); /* Move the component up by 10px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+}
+.overview-bills-container:hover{
+    transform: translateY(-10px); /* Move the component up by 10px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+
+}
+
 .overview-recenttransactions-container h1{
     font-size:20px
 }

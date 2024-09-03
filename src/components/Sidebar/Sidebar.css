@@ -46,3 +46,6 @@
 .menu {
     flex: 1;
 }
+.name{
+    text-align:center;
+}
