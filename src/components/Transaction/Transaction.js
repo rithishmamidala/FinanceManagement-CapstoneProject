@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Transaction.css'; // Assume you have a corresponding CSS file
 import {jwtDecode} from 'jwt-decode'; // Correct import
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Transaction = () => {
   const [transactions, setTransactions] = useState([]);
@@ -42,11 +44,11 @@ const Transaction = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:2002/TransactionHistory',  {
+        const response = await axios.get('http://localhost:2002/TransactionHistory', {
           headers: {
-          'Authorization': `Bearer ${token}`,
-        } , });
-        
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         setTransactions(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -72,8 +74,9 @@ const Transaction = () => {
       try {
         const response = await axios.get('http://localhost:2003/expense', {
           headers: {
-          'Authorization': `Bearer ${token}`,
-        } , } ); // Adjust the URL as needed
+            'Authorization': `Bearer ${token}`,
+          },
+        }); // Adjust the URL as needed
         const goals = [...new Set(response.data.map(goal => goal.goalName))];
         setGoalsData(goals);
       } catch (error) {
@@ -96,13 +99,17 @@ const Transaction = () => {
 
     try {
       const response = await axios.post('http://localhost:2002/TransactionHistory', newTransaction);
-      console.log('Response:', response.data); // Debug response
+      toast.success('Transaction added successfully!'); // Show success toast
 
       // Fetch updated transaction list after adding
-      const updatedData = await axios.get('http://localhost:2002/TransactionHistory');
+      const updatedData = await axios.get('http://localhost:2002/TransactionHistory', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+        },
+      });
       setTransactions(updatedData.data);
 
-      setShowModal(false);
+      setShowModal(false); // Close the modal after success
       setNewTransaction({
         accountName: '',
         goal: '',
@@ -112,6 +119,7 @@ const Transaction = () => {
         userName: username, // Ensure userName is included
       });
     } catch (error) {
+      toast.error('Something went wrong while posting data.'); // Show error toast
       console.error('Something went wrong while posting data:', error);
     }
   };
@@ -132,6 +140,7 @@ const Transaction = () => {
 
   return (
     <div className="container mt-5">
+      <ToastContainer /> {/* Add ToastContainer for displaying toast messages */}
       <h2 className="mb-4">Transaction Table</h2>
       <div className="table-responsive">
         <table className="table table-striped table-hover">
