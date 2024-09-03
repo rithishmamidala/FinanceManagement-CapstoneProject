@@ -1,0 +1,59 @@
+.recent-transactions .tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .recent-transactions .tabs span {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .recent-transactions .tabs span.active {
+    background-color: grey;
+    color: white;
+  }
+  
+  .recent-transactions .tabs span:hover {
+    background-color: #e0e0e0; /* Lighter gray for hover effect */
+  }
+  
+  .table {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .table th, .table td {
+    padding: 0.5rem;
+    text-align: left;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb; /* Light gray color for inactive dots */
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .dot.active {
+    background-color: #007bff; /* Blue color for the active dot */
+  }
+  
+  .dot:hover {
+    background-color: #0056b3; /* Darker blue for hover effect */
+  }
+  

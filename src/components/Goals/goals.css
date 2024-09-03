@@ -1,0 +1,110 @@
+.goals-container {
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.date-picker-button {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.date-picker-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-icon {
+    margin-right: 5px;
+}
+
+.card h5, .card h6 {
+    margin-bottom: 15px;
+}
+
+.card-body p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.card-body .btn {
+    font-size: 14px;
+}
+
+.expense-card {
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+.expense-card .btn {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.modal-title {
+    font-size: 18px;
+}
+
+.modal-body input {
+    font-size: 16px;
+}
+
+.modal-footer .btn {
+    font-size: 14px;
+}
+/* Full-screen overlay with dark background */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay to dim the background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+/* Popup form style */
+.popup-form {
+    background: white;
+    border-radius: 15px; /* Curved corners */
+    padding: 30px;
+    max-width: 500px; /* Optional: Limit the width for better appearance */
+    width: 90%; /* Responsive width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    z-index: 1001; /* Ensure the form is above other content */
+}
+
+/* Content inside the popup */
+.popup-form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup-form h2 {
+    margin-bottom: 20px; /* Space between title and form elements */
+}
+
+.popup-form .form-group {
+    width: 100%; /* Full width for form elements */
+}
+
+.popup-form button {
+    margin: 10px;
+}
+
