@@ -70,7 +70,10 @@ const Transaction = () => {
 
     const fetchGoalsData = async () => {
       try {
-        const response = await axios.get('http://localhost:2003/expense'); // Adjust the URL as needed
+        const response = await axios.get('http://localhost:2003/expense', {
+          headers: {
+          'Authorization': `Bearer ${token}`,
+        } , } ); // Adjust the URL as needed
         const goals = [...new Set(response.data.map(goal => goal.goalName))];
         setGoalsData(goals);
       } catch (error) {

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Overview from './components/Overview/overview';
+import Overview from './components/Overview/overview'
 import Sidebar from './components/Sidebar/Sidebar';
 import Header from './components/Header/Header';
 import BalanceCards from './components/BalanceCards/BalanceCards';
 import Transaction from './components/Transaction/Transaction';
 import Goals from './components/Goals/goals';
+import SignUp from './components/Signup/Signup'
 import Login from './components/Login/Login';
 import Bills from './components/Bills/Bills';
 import Expenses from './components/Expenses/expenses';
@@ -53,36 +54,12 @@ const App = () => {
                             <Header />
                             <Routes>
                                 {/* Protected routes */}
-                                <Route path="/overview" element={
-                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                        <Overview />
-                                    </ProtectedRoute>
-                                } />
-                                <Route path="/balance" element={
-                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                        <BalanceCards />
-                                    </ProtectedRoute>
-                                } />
-                                <Route path="/transactions" element={
-                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                        <Transaction />
-                                    </ProtectedRoute>
-                                } />
-                                <Route path="/bills" element={
-                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                        <Bills />
-                                    </ProtectedRoute>
-                                } />
-                                <Route path="/expenses" element={
-                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                        <Expenses />
-                                    </ProtectedRoute>
-                                } />
-                                <Route path="/goals" element={
-                                    <ProtectedRoute isLoggedIn={isLoggedIn}>
-                                        <Goals />
-                                    </ProtectedRoute>
-                                } />
+                                <Route path="/overview" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Overview /></ProtectedRoute>} />
+                                <Route path="/balance" element={<ProtectedRoute isLoggedIn={isLoggedIn}><BalanceCards /></ProtectedRoute>} />
+                                <Route path="/transactions" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Transaction /></ProtectedRoute>} />
+                                <Route path="/bills" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Bills /></ProtectedRoute>} />
+                                <Route path="/expenses" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Expenses /></ProtectedRoute>} />
+                                <Route path="/goals" element={<ProtectedRoute isLoggedIn={isLoggedIn}><Goals /></ProtectedRoute>} />
                                 {/* Redirect to overview or login based on isLoggedIn */}
                                 <Route path="*" element={<Navigate to={isLoggedIn ? "/overview" : "/login"} replace />} />
                             </Routes>
@@ -90,37 +67,14 @@ const App = () => {
                     </div>
                 ) : (
                     <div className="App">
-                        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-                            <div className="container">
-                                <Link className="navbar-brand" to={'/sign-in'}>
-                                    positronX
-                                </Link>
-                                <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                                    <ul className="navbar-nav ml-auto">
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={'/sign-in'}>
-                                                Login
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={'/sign-up'}>
-                                                Sign up
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-
-                        <div className="auth-wrapper">
-                            <div className="auth-inner">
+                       
                                 <Routes>
                                     <Route path="/login" element={<Login onLogin={handleLogin} />} />
+                                    <Route path="/sign-up" element={<SignUp />} />
                                     <Route path="*" element={<Navigate to="/login" replace />} />
                                 </Routes>
                             </div>
-                        </div>
-                    </div>
+                     
                 )}
             </div>
         </Router>

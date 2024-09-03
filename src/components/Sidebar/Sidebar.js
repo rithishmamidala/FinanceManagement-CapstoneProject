@@ -5,11 +5,14 @@ import './Sidebar.css';
 
 const Sidebar = () => (
     <div className="sidebar">
-        <h2 className="logo">SavvyTrack</h2>
+       
+        <div className="name">
+        <h1>Finance</h1>
+        </div>
 
         <Menu />
 
-        <UserProfile />
+        {/* <UserProfile /> */}
     </div>
 );
 

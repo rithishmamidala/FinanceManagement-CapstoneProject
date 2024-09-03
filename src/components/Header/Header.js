@@ -32,12 +32,12 @@ class Header extends Component {
 
     render() {
         const { username } = this.state;
-
+        const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         return (
             <div className="header">
                 <div>
                     <h2>Hi, {username}</h2>
-                    <p>Nov 09, 2024</p>
+                    <p>{today}</p>
                 </div>
                 <div className="headerIcons">
                     <FaBell className="headerIcon" />

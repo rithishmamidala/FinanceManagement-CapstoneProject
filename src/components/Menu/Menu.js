@@ -30,9 +30,7 @@ const Menu = () => {
             <Link to="/goals" className="line-none" onClick={() => setActiveField("Goals")}>
                 <MenuItem title="Goals" icon={<FaBullseye />} activeField={activeField} />
             </Link>
-            <Link to="/settings" className="line-none" onClick={() => setActiveField("Settings")}>
-                <MenuItem title="Settings" icon={<FaCog />} activeField={activeField} />
-            </Link>
+            
         </div>
     );
 };

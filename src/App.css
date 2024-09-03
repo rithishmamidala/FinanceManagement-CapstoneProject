@@ -1,5 +1,6 @@
 .appContainer {
   display: flex;
+  background-color: #f8f6f6;
   /* position: fixed; */
 
 }
@@ -11,7 +12,7 @@ body {
 .mainContent {
   flex: 1;
   padding: 20px;
-  background-color: hsl(210, 17%, 98%);
+  /* background-color: #cccccc; */
   /* position: fixed; */
   position: relative;
   margin-left: 19%;
