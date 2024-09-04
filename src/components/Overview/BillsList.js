@@ -20,31 +20,29 @@ const BillsList = () => {
       try {
         const response = await axios.get('http://localhost:9007/bills/getbills');
         const bills = response.data;
-        console.log('Fetched Bills:', bills);  // Log fetched data
         const sortedBills = bills.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
-        console.log('Sorted Bills:', sortedBills);  // Log sorted data
         setBillsData(sortedBills);
       } catch (error) {
         console.error('There was an error fetching the bills data!', error);
       }
     };
-  
+
     fetchBillsData();
   }, []);
-  
+
   const totalPages = Math.ceil(billsData.length / itemsPerPage);
   const displayedBills = billsData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
-  const handleDotClick = (index) => {
-    setCurrentPage(index);
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
     <div className="bills-list-container">
-      <table className="bills-list-table">
+      <table className="table table-striped table-hover">
         <thead>
           <tr>
-            <th>Due Date</th>
+            <th>Duedate</th>
             <th>Bill Name</th>
             <th>Amount</th>
           </tr>
@@ -67,15 +65,19 @@ const BillsList = () => {
           })}
         </tbody>
       </table>
-      <div className="bills-list-dotsContainer">
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <span
-            key={index}
-            className={`bills-list-dot ${index === currentPage ? 'active' : ''}`}
-            onClick={() => handleDotClick(index)}
-          ></span>
-        ))}
-      </div>
+
+      {/* Conditionally render pagination if there's more than one page */}
+      {totalPages > 1 && (
+        <div className="pagination">
+          {[...Array(totalPages)].map((_, index) => (
+            <span
+              key={index}
+              onClick={() => handlePageClick(index)}
+              className={currentPage === index ? 'dot active' : 'dot'}
+            ></span>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

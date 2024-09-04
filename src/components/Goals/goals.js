@@ -100,9 +100,7 @@ function Goals() {
                                     <div className="card-body text-center">
                                         <h6>{goal.goalName}</h6>
                                         <h4>${goal.amount.toFixed(2)}</h4>
-                                        <Button variant="outline-primary" onClick={() => alert('Adjust Goal')}>
-                                            Adjust
-                                        </Button>
+                                       
                                     </div>
                                 </div>
                             </div>
