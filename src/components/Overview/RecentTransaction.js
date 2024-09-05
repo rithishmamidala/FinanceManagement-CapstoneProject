@@ -66,12 +66,16 @@ const RecentTransaction = () => {
 
   const renderTransactions = (transactions) => {
     return transactions.map((transaction, index) => (
-      <tr key={index}>
-        <td>{transaction.goal}</td>
-        <td>${transaction.amount}</td>
-      </tr>
+      <div key={index} className="transaction-row">
+        <span className="goal">{transaction.goal}</span>
+        <span className="amount" style={{ color: transaction.transactionType === 'Credit' ? 'green' : 'red' }}>
+          ${transaction.amount}
+        </span>
+      </div>
     ));
   };
+  
+  
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -79,19 +83,36 @@ const RecentTransaction = () => {
 
   return (
     <div className="recent-transactions">
-      <div className="tabs">
-        <span onClick={() => setSelectedTab('all')} className={selectedTab === 'all' ? 'active' : ''}>All</span>
+      
+      {/* <div className="tabs">
+  <button
+    className={`text-button ${selectedTab === 'all' ? 'active' : ''}`}
+    onClick={() => setSelectedTab('all')}
+  >
+    All
+  </button>
+  </div> */}
+  <div className="tabs">
+  <span
+    className={`tab-item ${selectedTab === 'all' ? 'active' : ''}`}
+    onClick={() => setSelectedTab('all')}
+  >
+    All
+  </span>
+  {/* Add more tabs similarly if needed */}
+</div>
+
+            
+             {/* Add more buttons for other tabs if needed */}
+
+        {/* <button className="text-button"  onClick={() => setSelectedTab('all')}>All</button> */}
+        {/* <span onClick={() => setSelectedTab('all')} className={selectedTab === 'all' ? 'active' : ''}>All</span> */}
         {/* <span onClick={() => setSelectedTab('revenue')} className={selectedTab === 'revenue' ? 'active' : ''}>Revenue</span>
         <span onClick={() => setSelectedTab('expense')} className={selectedTab === 'expense' ? 'active' : ''}>Expense</span> */}
-      </div>
+     
 
       <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Goal</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
+        
         <tbody>
           {renderTransactions(getPaginatedTransactions())}
         </tbody>

@@ -1,36 +1,47 @@
 .recent-transactions .tabs {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-  }
-  
-  .recent-transactions .tabs span {
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-  }
-  
-  .recent-transactions .tabs span.active {
-    background-color: grey;
-    color: white;
-  }
-  
-  .recent-transactions .tabs span:hover {
-    background-color: #e0e0e0; /* Lighter gray for hover effect */
-  }
-  
-  .table {
-    width: 100%;
-    margin-top: 1rem;
-  }
-  
-  .table th, .table td {
-    padding: 0.5rem;
-    text-align: left;
-  }
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.recent-transactions .tabs .tab-item {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s, text-decoration 0.3s;
+  background-color: transparent; /* Ensure no background color */
+  border: none; /* Remove any borders */
+}
+
+.recent-transactions .tabs .tab-item.active {
+  color: grey; /* Seablue */
+
+  background-color: transparent; /* No background color for active tab */
+}
+.recent-transactions .tabs .tab-item.active:hover{
+  color: #20b2aa;
+  text-decoration: underline;
+}
+
+.recent-transactions .transaction-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid lightgray; /* Light gray underline */
+}
+
+.recent-transactions .goal {
+  font-weight: bold;
+}
+
+.recent-transactions .amount {
+  font-weight: bold;
+  margin-left: 1rem; /* Adjust spacing between goal and amount */
+}
+
+
+
+
   
   .pagination {
     display: flex;
@@ -56,4 +67,16 @@
   .dot:hover {
     background-color: #0056b3; /* Darker blue for hover effect */
   }
-  
+  .text-button {
+    background: none;
+    border: none;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: inherit;
+    padding: 0;
+}
+
+.text-button:hover {
+    color: inherit; /* No color change on hover */
+}

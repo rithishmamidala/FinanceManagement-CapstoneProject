@@ -94,7 +94,7 @@ const Overview = () => {
 
       <div className="overview-section overview-top-section">
         <div className="overview-balance-container">
-          <h1 style={{"marginBottom":"20px","font-size":"20px"}}>Total Balance</h1>
+          <h1 style={{"marginBottom":"30px","font-size":"20px"}}>Total Balance</h1>
           <div className="overview-card-part">
             <BalanceCards showFirstCardOnly={true} currentCardIndex={currentCardIndex} />
           </div>
@@ -112,8 +112,8 @@ const Overview = () => {
         <div className="overview-goals-container">
        
           <div className="track-meter">
-          <h1 style={{"margin-bottom":"20px","font-size":"20px"}}>Trackmeter</h1>
-          <TrackMeter />
+          <h1 style={{"font-size":"20px","padding-top":"0px","margin-top":"0px"}}>ExpenseBreakdown</h1>
+          <ExpenseBreakdown />
           </div>
         </div>
 
@@ -139,10 +139,10 @@ const Overview = () => {
             />
           </div>
           
-          <div className="overview-expensebreakdown-container">
+          {/* <div className="overview-expensebreakdown-container">
             <h1 style={{"marginBottom":"20px","font-size":"20px"}}>Expense Breakdown</h1>
             <ExpenseBreakdown />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -142,11 +142,12 @@ const BalanceCards = ({ showFirstCardOnly = false, currentCardIndex = 0 }) => {
                             </div>
                         </div>
                     ))}
-                    <div className="card">
+                    
+                    <div >
                         <button className="addAccountButton" onClick={() => setShowModal(true)}>Add Account</button>
-                        
                     </div>
-                </>
+                    
+                    </>
             )}
 
             {showFirstCardOnly && cardData.length > 1 && (

@@ -124,12 +124,14 @@ function ExpenseBreakdown() {
         ? categoryData.slice(0, itemsPerPage)
         : categoryData.slice(4 + (currentPage - 2) * itemsPerPage, 4 + (currentPage - 1) * itemsPerPage);
 
-    const handlePageChange = (pageNumber) => {
+   
+    const handlePageClick = (pageNumber) => {
         setCurrentPage(pageNumber);
-    };
+      };
 
     return (
         <div className="expense-container">
+            
             <div className="category-summary">
                 {paginatedData.map(({ category, currentMonthTotal, previousMonthTotal, percentageChange }) => (
                     <div className="category-box" key={category}>
@@ -146,16 +148,15 @@ function ExpenseBreakdown() {
                 ))}
             </div>
             <div className="pagination">
-                {totalPages > 1 && (
-                    Array.from({ length: totalPages }, (_, index) => (
-                        <span
-                            key={index}
-                            className={`pagination-dot ${currentPage === index + 1 ? 'active' : ''}`}
-                            onClick={() => handlePageChange(index + 1)}
-                        ></span>
-                    ))
-                )}
-            </div>
+        {[...Array(totalPages)].map((_, index) => (
+          <span
+            key={index}
+            onClick={() => handlePageClick(index + 1)}
+            className={currentPage === index + 1 ? 'dot active' : 'dot'}
+          ></span>
+        ))}
+      </div>
+            
         </div>
     );
 }

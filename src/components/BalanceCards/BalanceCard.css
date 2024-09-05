@@ -60,7 +60,7 @@
 
 .removeButton,
 .detailsButton {
-    background-color: #20b2aa;
+    background-color:#4f46e5;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -75,7 +75,7 @@
 }
 
 .addAccountButton {
-    background-color: #59cf94;
+    background-color:#4f46e5;
     color: white;
     border: none;
     padding: 15px 30px;
@@ -83,14 +83,24 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 20px;
+    height: 50px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+    border-radius: 50px;
 }
 
 .addAccountButton:hover {
-    background-color: #20b2aa;
+    background-color: white;
+    border: 1px solid #4f46e5;
+    color:#4f46e5;
 }
 
 .editAccountLink {
-    color:#59cf94;
+    color:#4f46e5;
     cursor: pointer;
     margin-top: 15px;
     text-decoration: underline;
@@ -164,4 +174,23 @@ form {
 }
 input{
     margin-bottom:5px;
+}
+.btn-div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardsContainer-1{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.main-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }

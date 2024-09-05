@@ -40,13 +40,13 @@ const BillsList = () => {
   return (
     <div className="bills-list-container">
       <table className="table table-striped table-hover">
-        <thead>
+        {/* <thead>
           <tr>
             <th>Duedate</th>
             <th>Bill Name</th>
             <th>Amount</th>
           </tr>
-        </thead>
+        </thead> */}
         <tbody>
           {displayedBills.map((bill, index) => {
             const { monthName, day, year } = formatMonthAndYear(bill.duedate);

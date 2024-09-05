@@ -1,69 +1,55 @@
 .bills-list-container {
   margin-top: 1rem;
-}
-
-.bills-list-table {
-  border: 1px solid;
   width: 100%;
+  padding: 10px;
 }
 
-.bills-list-table th, .bills-list-table td {
-  padding: 5px;
-  text-align: left;
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
 }
 
-.bills-list-table th {
-  background-color: #f4f4f4;
-}
-
-.bills-list-date {
+.bill-date {
   text-align: center;
+  margin-right: 20px;
 }
 
-.bills-list-date div {
-  line-height: 1.2;
+.bill-month {
+  font-size: 12px;
+  color: #888;
 }
 
-.bills-list-dotsContainer {
-  margin-top:0px;
-  text-align: center;
-  margin-top: 1px;
+.bill-day {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.bills-list-dot {
- 
-  height: 7px;
-  width: 7px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.bill-details {
+
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.bills-list-dot.active {
-  background-color: #007bff;
+.bill-name {
+  font-size: 16px;
+  color: #333;
 }
 
-.bills-list-dot:hover {
-  background-color: #0056b3;
+.bill-amount {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
 }
-/* Common Table Styles */
-.table {
+
+.bill-separator {
+  height: 1px;
+  background-color: #ddd;
   width: 100%;
-  margin-top: 1rem;
-  border-collapse: collapse;
-}
-
-.table th, .table td {
-  padding: 0.5rem;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-.table th {
-  background-color: #f4f4f4;
+  margin-top: 10px;
 }
 
 /* Pagination Styles */
@@ -74,10 +60,10 @@
 }
 
 .dot {
-  height: 5px;
-  width: 5px;
+  height: 7px;
+  width: 7px;
   margin: 0 5px;
-  background-color: #bbb; /* Light gray color for inactive dots */
+  background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
@@ -85,19 +71,9 @@
 }
 
 .dot.active {
-  background-color: #007bff; /* Blue color for the active dot */
+  background-color: #007bff;
 }
 
 .dot:hover {
-  background-color: #0056b3; /* Darker blue for hover effect */
+  background-color: #0056b3;
 }
-
-/* Date styling inside the table cells */
-.bills-list-date {
-  text-align: center;
-}
-
-.bills-list-date div {
-  line-height: 1.2;
-}
-

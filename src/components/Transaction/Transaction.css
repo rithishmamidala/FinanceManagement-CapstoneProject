@@ -8,17 +8,20 @@
 
 }
 .addAccounts{
-background-color:#20b2aa ;
+background-color: #4f46e5 ;
 color: white;
 border: none;
 padding: 12px 17px;
-border-radius: 5px;
+border-radius: 50px;
 cursor: pointer;
 transition: background-color 0.3s ease;
 margin-top: 20px;
+width: 150px;
 }
 .addAccounts:hover {
-    background-color:#59cf94;
+    background-color: white;
+    border:1px solid #4f46e5;
+    color:#4f46e5;
 }
 
 .modal {

@@ -68,7 +68,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px; /* Increased gap for more spacing between boxes */
-    padding: 20px; /* Added padding around the entire summary */
+    padding: 10px; /* Added padding around the entire summary */
 }
 
 .category-box {
@@ -107,7 +107,7 @@
     justify-content: center;
     align-items: center;
     height: 50px; /* Adjust height as needed */
-    margin-bottom: 10px;
+    margin-bottom: 1px;
     font-size: 24px; /* Larger font size for prominence */
     font-weight: bold;
     color: #333;
@@ -167,6 +167,7 @@
 }
 
 .pagination-dot {
+    margin-top:0px;
     display: inline-block;
    
     width: 5px;
@@ -182,6 +183,5 @@
     background-color: #333;
 }
 .pagination{
-    margin-top:1rem;
+    margin-top:1px;
 }
-

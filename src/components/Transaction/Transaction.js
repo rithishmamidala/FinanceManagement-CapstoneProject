@@ -204,6 +204,10 @@ const Transaction = () => {
                   {goalsData.map((goal, index) => (
                     <option key={index} value={goal}>{goal}</option>
                   ))}
+                  <option>Salary</option>
+                  <option>Scholorship</option>
+                  <option>Investment income</option>
+                  <option>others</option>
                 </select>
               </div>
               <div className="form-group">

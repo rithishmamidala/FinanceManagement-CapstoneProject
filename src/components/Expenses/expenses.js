@@ -193,9 +193,9 @@ function Expenses() {
                     debitAmounts={monthlyData.debitAmounts} 
                 />
             </div>
-
-             <div className="expense-container">
-               
+       
+             <div className="expense-container card space">
+             <h2>Goals Breakdown</h2>
              <div className="category-summary">
                     {categoryData.map(({ category, currentMonthTotal, previousMonthTotal, percentageChange }) => (
                         <div className="category-box" key={category}>

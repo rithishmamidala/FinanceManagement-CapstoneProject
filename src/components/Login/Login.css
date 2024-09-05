@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
     display: flex;
@@ -7,14 +7,28 @@ body {
     height: 100vh;
     margin: 0;
   }
+   */
+   .sc-keTIit.sc-jwIPbr.qVSys.jizaAJ
+   {
+    background-color: #000000d0;
+   }
+   .sc-keTIit.sc-dpBQxM.qVSys.fVVFzk{
+    background-color: #000000d0;
+   }
+.login{
+  height: 100vh;
+  padding-top: 8%;
+  padding-left: 23% ;
+}
   
   .login-container {
     flex:1.5;
     background-color: #fff;
-    padding: 20px;
+   padding: 20%;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
+    
 
     background-image: url("https://www.idfcfirstbank.com/content/dam/idfcfirstbank/images/blog/finance/difference-between-money-finance-funds-717X404.jpg");
     

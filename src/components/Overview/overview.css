@@ -31,20 +31,27 @@
     margin: 0 5px; /* Decrease the margins to make the components more compact */
     background-color: #ffffff;
     border-radius: 10px;
+    border-top: 1px solid #e0e0e0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
     min-width: 30%; /* Ensure each section has a minimum width */
-    height: 250px; /* Decrease the height of the components */
+    height: 270px; /* Decrease the height of the components */
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
    
     
 }
 .overview-balance-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     margin-top:10px;
     min-width: 320px;
+    height: 270px;
     transform: translateY(-10px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+    border-top: 1px solid #e0e0e0;
 }
 .overview-goals-container:hover{
     /* transform: translateY(-10px); Move the component up by 10px */
@@ -69,24 +76,22 @@
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #e0e0e0;
     padding: 10px;
     display:flex;
-    height: 250px; /* Increase the height to accommodate the speedometer */
+    height: 270px; /* Increase the height to accommodate the speedometer */
     display: flex; /* Use flexbox to center the content */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     overflow: hidden; /* Hide overflow */
 }
 
-
-
-
 .overview-card-part {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 150px;
-    padding-left:40%
+    padding-left:36%
 }
 
 .overview-dotsContainer {
@@ -107,7 +112,7 @@
 }
 
 .overview-dot.active {
-    background-color: #717171;
+    background-color: #007bff;
 }
 
 /* Middle section: Recent Transactions, Bar Graph, Expense Breakdown */
@@ -124,7 +129,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    height: 800px; /* Increased height to make it taller */
+    height: 370px; /* Increased height to make it taller */
     width:100px;
     overflow-y: auto; /* Allow scrolling if content overflows */
 
@@ -154,6 +159,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
+    height:370px;
 }
 .overview-expensebreakdown-container {
     background-color: #ffffff;
@@ -185,12 +191,14 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for the hover effect */
 }
 
+
+
 .overview-track-meter:hover {
     /* transform: translateY(-10px); Move the component up by 10px */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
 }
 .overview-bills-container:hover{
-    transform: translateY(-10px); /* Move the component up by 10px */
+    /* transform: translateY(-10px); Move the component up by 10px */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
 
 }

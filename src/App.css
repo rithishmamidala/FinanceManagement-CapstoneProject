@@ -1,11 +1,11 @@
 .total{
-  background-color: #cff0e7;
+  /* background-color:#e1e9e7; */
   height: 100vh;
 }
 
 .appContainer {
   display: flex;
-  background-color: #cff0e7;
+  /* background-color: #e1e9e7; */
   /* position: fixed; */
 
 }
@@ -16,7 +16,7 @@
 .mainContent {
   flex: 1;
   padding: 20px;
-  /* background-color: #cccccc; */
+  background-color: #ffffff;
   /* position: fixed; */
   position: relative;
   margin-left: 19%;
@@ -24,6 +24,7 @@
 
 .App {
   text-align: center;
+  background-color:#e1e9e7;
 }
 
 .App-logo {

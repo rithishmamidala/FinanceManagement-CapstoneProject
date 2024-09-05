@@ -93,10 +93,10 @@ function Goals() {
             <div className="card mb-3">
                 <div className="card-body">
                     <h5 style={{"text-align":"center" ,"font-size":"20px"}}>Expenses Goals by Category</h5>
-                    <div className="row">
+                    <div className="row-1">
                         {expenseGoals.map((goal, index) => (
-                            <div key={index} className="col-md-4 mb-3">
-                                <div className="card">
+                            <div key={index} className="cardContent-2">
+                                <div className="card card-1">
                                     <div className="card-body text-center">
                                         <h6>{goal.goalName}</h6>
                                         <h4>${goal.amount.toFixed(2)}</h4>
@@ -105,12 +105,12 @@ function Goals() {
                                 </div>
                             </div>
                         ))}
-                        <div className="col-md-4 mb-3">
-                            <div className="card">
-                                <div className="card-body text-center">
-                                    <Button className="addAccountButton" onClick={handleShowGoalModal}>Add Goal</Button>
-                                </div>
-                            </div>
+                        <div className="col-md-4 mb-3 full-width">
+                           
+                                
+                                    <Button className="addAccountButton align-right" onClick={handleShowGoalModal}>Add Goal</Button>
+                                
+                        
                         </div>
                     </div>
                 </div>
