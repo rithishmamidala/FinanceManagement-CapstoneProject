@@ -1,0 +1,170 @@
+.goals-container {
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.date-picker-button {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.date-picker-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-icon {
+    margin-right: 5px;
+}
+
+.card h5, .card h6 {
+    margin-bottom: 15px;
+}
+
+.card-body p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.card-body .btn {
+    font-size: 14px;
+}
+
+.expense-card {
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+.expense-card .btn {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.modal-title {
+    font-size: 18px;
+}
+
+.modal-body input {
+    font-size: 16px;
+}
+
+.modal-footer .btn {
+    font-size: 14px;
+}
+.category-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Increased gap for more spacing between boxes */
+    padding: 20px; /* Added padding around the entire summary */
+}
+
+.category-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px; /* Slightly more rounded corners */
+    padding: 20px;
+    width: 250px; /* Increased width for more content space */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* Cleaner background color */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+
+.category-box:hover {
+    transform: translateY(-5px); /* Subtle lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0; /* Added a bottom border for separation */
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.category-name {
+    font-size: 16px; /* Slightly larger font for better readability */
+    font-weight: 600; /* Bold font for category name */
+    color: #333; /* Darker text color for better contrast */
+}
+
+.category-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px; /* Adjust height as needed */
+    margin-bottom: 10px;
+    font-size: 24px; /* Larger font size for prominence */
+    font-weight: bold;
+    color: #333;
+    border: 1px solid #e0e0e0; /* Solid border for square effect */
+    border-radius: 10px; /* Rounded corners for the square */
+    background-color: #f0f0f0;
+    padding: 10px; /* Padding for better spacing inside the box */
+    text-align: center; /* Center text inside the box */
+}
+
+.percentage-arrow {
+    display: inline-block;
+    padding: 5px 10px; /* Padding around the percentage */
+    /* border: 1px solid #e0e0e0; /* Border to create the square effect */
+    /* border-radius: 5px; Optional: slightly rounded corners */ 
+    background-color: #ffffff; /* Background color inside the square */
+}
+
+.percentage-arrow.up {
+    color: #e74c3c; /* Color for upward trend */
+    border-color: #e74c3c; /* Border color matching the text color */
+}
+
+.percentage-arrow.down {
+    color: #2ecc71; /* Color for downward trend */
+    border-color: #2ecc71; /* Border color matching the text color */
+}
+
+.expense-summary {
+    margin-bottom: 30px; /* Increased margin for better separation */
+}
+.category-space{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px; /* Adjust height as needed */
+    margin-bottom: 10px;
+    font-size: 24px; /* Larger font size for prominence */
+    font-weight: bold;
+    color: #333;
+    border: 1px dashed #e0e0e0; /* Optional: dashed border for emphasis */
+    border-radius: 50%; /* Optional: rounded shape */
+    background-color: #f0f0f0;
+}
+
+
+.percentage-arrow.down {
+    color: green;
+}
+
+.category-body {
+    margin-top: 10px;
+}
+
+.expense-summary {
+    margin-bottom: 20px;
+}
+
+.space{
+    padding:20px 0px;
+}

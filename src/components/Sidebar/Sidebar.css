@@ -1,0 +1,35 @@
+/* .sidebar {
+    width: 250px;
+    background-color: #1e1e1e;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* Allows scrolling within the sidebar if content overflows 
+} */
+
+.logo {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.menu {
+    flex: 1;
+}
+
+
+
+.sidebar {
+    width:19%;
+    height: 100vh;
+    color: #fff;
+    position: fixed; 
+    border-radius: 5px; 
+    overflow-y: auto; 
+}
+
+
+

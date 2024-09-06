@@ -1,0 +1,134 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px; 
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px; 
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.6rem; /* Slightly reduced font size */
+    color: #333;
+}
+
+.header p {
+    margin: 0;
+    font-size: 0.9rem; /* Slightly reduced font size */
+    color: #666;
+}
+
+.headerIcons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Reduced gap */
+}
+
+.headerIcon {
+    font-size: 1.3rem; /* Slightly reduced icon size */
+    color: #007bff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.headerIcon:hover {
+    color: #0056b3;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    position: relative; /* Keeps the search bar in place */
+}
+
+.searchInput {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-left: 5px;
+    width: 200px;
+}
+
+.suggestionsList {
+    position: absolute;
+    top: 100%; /* Position it below the search bar */
+    left: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Fit within the search input width */
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1;  /* Ensure it appears above other elements */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add some shadow for better visibility */
+}
+
+.suggestionsList li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.suggestionsList li:hover {
+    background-color: #f1f1f1;
+}
+
+.bell-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.bills-popup {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 10;
+    display: none; /* Hide by default */
+}
+
+.bills-popup.show {
+    display: block; /* Show when triggered */
+}
+
+
+.bills-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.bills-list li {
+    width:200px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+.bills-list li:hover{
+    background-color: grey;;
+}
+
+.bills-list li:last-child {
+    border-bottom: none;
+}
+
+.bell-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}

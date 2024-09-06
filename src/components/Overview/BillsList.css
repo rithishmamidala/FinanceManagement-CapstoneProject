@@ -1,0 +1,79 @@
+.bills-list-container {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 10px;
+}
+
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.bill-date {
+  text-align: center;
+  margin-right: 20px;
+}
+
+.bill-month {
+  font-size: 12px;
+  color: #888;
+}
+
+.bill-day {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.bill-details {
+
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bill-name {
+  font-size: 16px;
+  color: #333;
+}
+
+.bill-amount {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.bill-separator {
+  height: 1px;
+  background-color: #ddd;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: #007bff;
+}
+
+.dot:hover {
+  background-color: #0056b3;
+}
