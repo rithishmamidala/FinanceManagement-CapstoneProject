@@ -89,7 +89,7 @@ const Header = () => {
                 case 'goals':
                     navigate('/goals');
                     break;
-                case 'overview':
+                case 'dashboard':
                     navigate('/overview');
                     break;
                 default:
