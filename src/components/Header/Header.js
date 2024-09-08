@@ -13,7 +13,7 @@ const Header = () => {
     const [upcomingBills, setUpcomingBills] = useState([]);
     const [showBillsPopup, setShowBillsPopup] = useState(false);
     const navigate = useNavigate();
-    const availableSuggestions = ['balance', 'transactions', 'bills', 'expenses', 'goals', 'overview'];
+    const availableSuggestions = ['balance', 'transactions', 'bills', 'expenses', 'goals', 'dashboard'];
     
     useEffect(() => {
         const token = localStorage.getItem('authToken');
