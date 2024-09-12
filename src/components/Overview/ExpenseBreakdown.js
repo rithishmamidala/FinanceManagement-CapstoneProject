@@ -142,7 +142,7 @@ function ExpenseBreakdown() {
                             </span>
                         </div>
                         <div className="category-body">
-                            <p>${currentMonthTotal}</p>
+                            <p>₹{currentMonthTotal}</p>
                         </div>
                     </div>
                 ))}

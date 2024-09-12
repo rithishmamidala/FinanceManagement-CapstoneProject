@@ -18,7 +18,12 @@ const BillsList = () => {
   useEffect(() => {
     const fetchBillsData = async () => {
       try {
-        const response = await axios.get('http://localhost:9007/bills/getbills');
+        const token = localStorage.getItem('authToken');
+        const response = await axios.get('http://localhost:9007/bills/getbills',  {
+            headers: {
+            'Authorization': `Bearer ${token}`,
+          } , });
+       
         const bills = response.data;
         const sortedBills = bills.sort((a, b) => new Date(a.duedate) - new Date(b.duedate));
         setBillsData(sortedBills);

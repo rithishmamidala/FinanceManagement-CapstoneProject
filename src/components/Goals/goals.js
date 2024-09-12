@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {jwtDecode} from 'jwt-decode';
 import TrackMeter from './TrackMeter';
 import './goals.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
 
 function Goals() {
     const [showGoalModal, setShowGoalModal] = useState(false);
@@ -22,11 +24,11 @@ function Goals() {
     };
 
     const add = async () => {
-        
         try {
             // Validate input
             if (!goal || target <= 0) {
                 setError("Please enter a valid goal name and target amount.");
+                toast.error("Please enter a valid goal name and target amount.");
                 return;
             }
 
@@ -38,39 +40,41 @@ function Goals() {
                 goalName: goal,
                 goalDescription: "Food Expenses",
                 amount: target,
-                userName:extractedUsername 
+                userName: extractedUsername 
             });
 
-            // Option 1: Re-fetch data from backend after adding a new account
+            // Fetch updated data from backend
             const updatedData = await axios.get('http://localhost:2003/expense', {
                 headers: {
-                'Authorization': `Bearer ${token}`,
-              } , } );
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
             setExpenseGoals(updatedData.data);
 
             handleCloseGoalModal();
             setError(""); // Clear error on successful save
+            toast.success('Goal added successfully!');
         } catch (error) {
             setError("Something went wrong while posting data.");
             console.error("Error posting data:", error);
+            toast.error('Something went wrong while posting data.');
         }
     };
 
     useEffect(() => {
         const fetchData = async () => {
-           
-            
-            
             try {
                 const token = localStorage.getItem('authToken');
                 const response = await axios.get('http://localhost:2003/expense', {
                     headers: {
-                    'Authorization': `Bearer ${token}`,
-                  } , } ); // Adjust the URL as needed
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
                 setExpenseGoals(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setError("Error fetching expense goals.");
+                toast.error('Error fetching expense goals.');
             }
         };
 
@@ -79,17 +83,13 @@ function Goals() {
 
     return (
         <div className="container mt-5 goals-container">
-           
-            
-            {/* <div className="trackmeter-container trackmeter-goals"> */}
-            {/* <h1 style={{"text-align":"center" ,"font-size":"20px"}}>Trackmeter</h1>
+            {/* <div className="trackmeter-container trackmeter-goals">
+            <h1 style={{"text-align":"center" ,"font-size":"20px"}}>Trackmeter</h1>
             <div className="trackmeter-container">
-            
-            <TrackMeter />
+                <TrackMeter />
+            </div>
             </div> */}
-            {/* </div> */}
             
-
             <div className="card mb-3">
                 <div className="card-body">
                     <h5 style={{"text-align":"center" ,"font-size":"20px"}}>Expenses Goals by Category</h5>
@@ -99,18 +99,13 @@ function Goals() {
                                 <div className="card card-1">
                                     <div className="card-body text-center">
                                         <h6>{goal.goalName}</h6>
-                                        <h4>${goal.amount.toFixed(2)}</h4>
-                                       
+                                        <h4>₹{goal.amount.toFixed(2)}</h4>
                                     </div>
                                 </div>
                             </div>
                         ))}
                         <div className="col-md-4 mb-3 full-width">
-                           
-                                
-                                    <Button className="addAccountButton align-right" onClick={handleShowGoalModal}>Add Goal</Button>
-                                
-                        
+                            <Button className="addAccountButton align-right" onClick={handleShowGoalModal}>Add Goal</Button>
                         </div>
                     </div>
                 </div>
@@ -153,6 +148,8 @@ function Goals() {
                     </div>
                 </div>
             )}
+
+            <ToastContainer /> {/* Add this to render toasts */}
         </div>
     );
 }

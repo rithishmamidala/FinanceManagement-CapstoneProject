@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import {jwtDecode} from 'jwt-decode'; // Correct import
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS
 import './Bills.css';
 
 const Bills = () => {
@@ -10,20 +13,42 @@ const Bills = () => {
     itemdesc: "",
     duedate: "",
     amount: "",
+    username: ""
   });
-
-  // Fetch bills data from the server
-  const fetchBillsData = async () => {
-    try {
-      const response = await axios.get('http://localhost:9007/bills/getbills');
-      setBillsData(response.data);
-    } catch (error) {
-      console.error('There was an error fetching the bills data!', error);
-    }
-  };
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
+    const fetchBillsData = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) throw new Error("No token found");
+
+        const response = await axios.get('http://localhost:9007/bills/getbills', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        setBillsData(response.data);
+      } catch (error) {
+        console.error('Error fetching bills data:', error);
+        toast.error('Failed to fetch bills data. Please try again later.');
+      }
+    };
+
     fetchBillsData();
+
+    // Handle token decoding and setting username
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setUsername(decodedToken.username);
+        setNewBill(prev => ({ ...prev, username: decodedToken.username }));
+      } catch (error) {
+        console.error('Invalid token:', error);
+        toast.error('Invalid token. Please log in again.');
+      }
+    }
   }, []);
 
   const handleInputChange = (e) => {
@@ -35,18 +60,33 @@ const Bills = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:9007/bills/addbills', newBill);
-      // After successfully adding the bill, fetch the updated bills data
-      fetchBillsData();
+      const token = localStorage.getItem('authToken');
+      if (!token) throw new Error("No token found");
+
+      await axios.post('http://localhost:9007/bills/addbills', newBill, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      // Fetch updated bills data after adding the new bill
+      const response = await axios.get('http://localhost:9007/bills/getbills', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setBillsData(response.data);
       setShowModal(false);
       setNewBill({
         billname: "",
         itemdesc: "",
         duedate: "",
         amount: "",
+        username: username
       });
+      toast.success('Bill added successfully!');
     } catch (error) {
-      console.error('There was an error saving the bill!', error);
+      console.error('Error saving the bill:', error);
+      toast.error('Failed to add the bill. Please check the data and try again.');
     }
   };
 
@@ -126,6 +166,8 @@ const Bills = () => {
           </div>
         </div>
       )}
+
+      <ToastContainer />
     </div>
   );
 };

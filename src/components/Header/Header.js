@@ -36,15 +36,15 @@ class Header extends Component {
         return (
             <div className="header">
                 <div>
-                    <h2>Hi,{username}</h2>
-                    <p>{today}</p>
+                    <h2>Hi,{username} <p>{today}</p> </h2>
+                    
                 </div>
                 <div className="headerIcons">
                     <FaBell className="headerIcon" />
-                    <div className="searchBar">
+                    {/* <div className="searchBar">
                         <FaSearch />
                         <input type="text" placeholder="Search here" className="searchInput" />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

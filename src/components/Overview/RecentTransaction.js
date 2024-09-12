@@ -69,7 +69,7 @@ const RecentTransaction = () => {
       <div key={index} className="transaction-row">
         <span className="goal">{transaction.goal}</span>
         <span className="amount" style={{ color: transaction.transactionType === 'Credit' ? 'green' : 'red' }}>
-          ${transaction.amount}
+        ₹ {transaction.amount}
         </span>
       </div>
     ));
@@ -103,13 +103,7 @@ const RecentTransaction = () => {
 </div>
 
             
-             {/* Add more buttons for other tabs if needed */}
-
-        {/* <button className="text-button"  onClick={() => setSelectedTab('all')}>All</button> */}
-        {/* <span onClick={() => setSelectedTab('all')} className={selectedTab === 'all' ? 'active' : ''}>All</span> */}
-        {/* <span onClick={() => setSelectedTab('revenue')} className={selectedTab === 'revenue' ? 'active' : ''}>Revenue</span>
-        <span onClick={() => setSelectedTab('expense')} className={selectedTab === 'expense' ? 'active' : ''}>Expense</span> */}
-     
+         
 
       <table className="table table-striped table-hover">
         

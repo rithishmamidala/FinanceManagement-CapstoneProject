@@ -206,7 +206,7 @@ function Expenses() {
                                 </span>
                             </div>
                             <div className="category-body">
-                                <p> ${currentMonthTotal}</p>
+                                <p> ₹ {currentMonthTotal}</p>
                                 {/* <p>Previous Month Total: ${previousMonthTotal}</p>
                                 <p>Percentage Change: {percentageChange}%</p> */}
                             </div>

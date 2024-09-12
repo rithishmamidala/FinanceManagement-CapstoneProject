@@ -53,7 +53,7 @@ const Login = ({ onLogin }) => {
                 navigate('/overview'); 
             } else {
                 setError('Invalid credentials.'); // Set error message for invalid token
-
+ 
             }
         } catch (error) {
             console.error('Login failed', error);
@@ -70,7 +70,7 @@ const Login = ({ onLogin }) => {
                 <Components.SignUpContainer signingIn={signIn}>
                     <Components.Form onSubmit={handleSignUp}>
                         <Components.Title>Create Account</Components.Title>
-                        <Components.Input type="text" placeholder="Email" onChange={(e) => setUsername(e.target.value)} 
+                        <Components.Input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} 
                             value={username}/>
                         <Components.Input type="password" placeholder="Password"  onChange={(e) => setPassword(e.target.value)} value={password}/>
                         <Components.Button>Sign Up</Components.Button>

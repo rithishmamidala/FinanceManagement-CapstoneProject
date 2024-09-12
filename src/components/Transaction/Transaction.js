@@ -139,9 +139,11 @@ const Transaction = () => {
   }
 
   return (
+    
     <div className="container mt-5">
       <ToastContainer /> {/* Add ToastContainer for displaying toast messages */}
       <h2 className="mb-4">Transaction Table</h2>
+      
       <div className="table-responsive">
         <table className="table table-striped table-hover">
           <thead>
@@ -158,20 +160,22 @@ const Transaction = () => {
             {currentTransactions.map((transaction, index) => (
               <tr key={index}>
                 <th>{indexOfFirstTransaction + index + 1}</th>
-                <td>{transaction.goal}</td>
+                <td><b>{transaction.goal}</b></td>
                 <td>{transaction.accountName}</td>
                 <td>{transaction.date}</td>
                 <td>{transaction.transactionType}</td>
-                <td>${transaction.amount}</td>
+                <td><b>₹ {transaction.amount}</b></td>
               </tr>
             ))}
           </tbody>
         </table>
+    
       </div>
       <div className="history">
         <button className="addAccounts" onClick={() => setShowModal(true)}>Add Transaction</button>
       </div>
 
+       {/* Dialouge Box */}
       {showModal && (
         <div className="modal">
           <div className="modal-content">

@@ -8,7 +8,6 @@ import Header from './components/Header/Header';
 import BalanceCards from './components/BalanceCards/BalanceCards';
 import Transaction from './components/Transaction/Transaction';
 import Goals from './components/Goals/goals';
-
 import Login from './components/Login/Login';
 import Bills from './components/Bills/Bills';
 import Expenses from './components/Expenses/expenses';
@@ -22,14 +21,12 @@ const App = () => {
 
     useEffect(() => {
         // Check if the user is logged in by checking for a token in localStorage
-        localStorage.clear(); // Clear localStorage for testing purposes
         const token = localStorage.getItem('authToken');
         
         if (token) {
             setIsLoggedIn(true);
         }
         
-
         setIsLoading(false); // Set loading to false after check is complete
     }, []);
 
@@ -73,7 +70,6 @@ const App = () => {
                     <Routes>
                         <Route path="/landing" element={<Landing />} />
                         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-                    
                         <Route path="*" element={<Navigate to="/landing" replace />} />
                     </Routes>
                 </div>
